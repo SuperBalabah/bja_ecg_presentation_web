@@ -126,10 +126,10 @@
             </h3>
             <span class="badge badge-primary">Concept</span>
           </div>
-          <div style="border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border-color);">
-            <img src="assets/ml_vs_programming_treasure.jpg" alt="Programming vs ML Metaphor" style="width: 100%; display: block;">
+          <div style="border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border-color); text-align: center; background: #000;">
+            <img src="assets/ml_vs_programming_treasure.jpg" alt="Programming vs ML Metaphor" style="max-width: 780px; width: 100%; display: block; margin: 0 auto;">
           </div>
-          <ul style="padding-left: 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+          <ul style="padding-left: 20px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.8;">
             <li><strong style="color: var(--text-main);">傳統寫程式</strong>：工程師鋪設好一條固定石板步道（<code>if-else</code>），電腦照著走到達寶藏。</li>
             <li><strong style="color: var(--text-main);">機器學習</strong>：只給起點（Data）與寶藏（Goal），中間路線是個<strong>大問號（？）</strong>，演算法必須自己透過試錯學出最佳路線！</li>
           </ul>
@@ -144,22 +144,22 @@
             </h3>
             <span class="badge badge-success">Formulation</span>
           </div>
-          <div style="background: #ffffff; padding: 12px; border-radius: var(--radius-md); text-align: center; margin-bottom: 16px; border: 1px solid var(--border-color);">
-            <img src="assets/classic_funnel_paradigm.jpg" alt="Classic Funnel Paradigm" style="max-height: 180px; width: auto; object-fit: contain;">
-            <div style="font-size: 0.72rem; color: #64748b; margin-top: 6px;">Source: Classical vs Machine Learning Paradigm</div>
+          <div style="background: #ffffff; padding: 16px; border-radius: var(--radius-md); text-align: center; margin-bottom: 16px; border: 1px solid var(--border-color);">
+            <img src="assets/classic_funnel_paradigm.jpg" alt="Classic Funnel Paradigm" style="max-height: 250px; width: auto; object-fit: contain;">
+            <div style="font-size: 0.74rem; color: #64748b; margin-top: 6px;">Source: Classical vs Machine Learning Paradigm</div>
           </div>
           
           <div class="pipeline-box" style="flex-direction: column; align-items: stretch; gap: 10px;">
-            <div style="font-size: 0.86rem;">
-              <span class="badge badge-warning" style="margin-right: 6px;">Classical</span>
+            <div style="font-size: 0.9rem;">
+              <span class="badge badge-warning" style="margin-right: 8px;">Classical</span>
               <strong>Data + Rules (Program) ➔ Output (Results)</strong>
             </div>
-            <div style="font-size: 0.86rem;">
-              <span class="badge badge-primary" style="margin-right: 6px;">Machine Learning</span>
+            <div style="font-size: 0.9rem;">
+              <span class="badge badge-primary" style="margin-right: 8px;">Machine Learning</span>
               <strong>Data + Answers (Goal) ➔ Learned Rules (Model)</strong>
             </div>
           </div>
-          <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 10px;">
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 12px; line-height: 1.6;">
             <span class="lang-zh">核心意義：給 37,000 例心電圖 + 術後有無心梗（目標答案），讓電腦自學高維危險特徵。</span>
             <span class="lang-en">Core concept: Feed 37,000 ECGs + postop outcomes to let the AI learn complex risk patterns.</span>
           </p>
@@ -184,36 +184,36 @@
         </p>
       </div>
 
-      <!-- Top Overview: 2 Comparison Images Side-by-Side -->
-      <div class="grid-2" style="margin-bottom: 24px;">
+      <!-- Top Overview: 2 Comparison Images Stacked -->
+      <div class="grid-2" style="margin-bottom: 28px;">
         <div class="card" style="text-align: center;">
           <div class="card-header">
-            <h4 class="card-title" style="font-size: 1rem;">
+            <h4 class="card-title" style="font-size: 1.05rem;">
               <span class="lang-zh">流程架構對比 (Input ➔ Mechanism ➔ Output)</span>
               <span class="lang-en">Pipeline Architecture Comparison</span>
             </h4>
             <span class="badge badge-primary">TheAIOps</span>
           </div>
-          <div style="background: #ffffff; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 220px;">
-            <img src="assets/ml_types_comparison.png" alt="ML Types Architecture Comparison" style="max-height: 200px; max-width: 100%; object-fit: contain;">
+          <div style="background: #ffffff; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 250px;">
+            <img src="assets/ml_types_comparison.png" alt="ML Types Architecture Comparison" style="max-height: 280px; max-width: 100%; object-fit: contain;">
           </div>
-          <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 8px;">
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px;">
             出處：<a href="https://www.theaiops.com/wp-content/uploads/2024/08/image-30-1024x523.png" target="_blank" style="color: var(--primary); text-decoration: none;">TheAIOps / GeeksforGeeks</a>
           </div>
         </div>
 
         <div class="card" style="text-align: center;">
           <div class="card-header">
-            <h4 class="card-title" style="font-size: 1rem;">
+            <h4 class="card-title" style="font-size: 1.05rem;">
               <span class="lang-zh">任務形態手繪直覺對比 (Clustering / Boundary / Policy)</span>
               <span class="lang-en">Handdrawn Intuitive Task Comparison</span>
             </h4>
             <span class="badge badge-success">Medium</span>
           </div>
-          <div style="background: #ffffff; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 220px;">
-            <img src="assets/ml_types_handdrawn.webp" alt="ML Types Handdrawn Comparison" style="max-height: 200px; max-width: 100%; object-fit: contain;">
+          <div style="background: #ffffff; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 250px;">
+            <img src="assets/ml_types_handdrawn.webp" alt="ML Types Handdrawn Comparison" style="max-height: 280px; max-width: 100%; object-fit: contain;">
           </div>
-          <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 8px;">
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px;">
             出處：<a href="https://miro.medium.com/v2/resize:fit:1025/1*phWriU47q3GKM6hKbUQ-4g.webp" target="_blank" style="color: var(--primary); text-decoration: none;">Medium - Machine Learning Types</a>
           </div>
         </div>
