@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark" data-lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BJA 2025 | ECG-MACE 深度學習麻醉科晨會簡報</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Left Sidebar Navigation
+       ========================================================================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-badge">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span>Department of Anesthesia</span>
+      </div>
+      <h2 class="sidebar-title">
+        <span class="lang-zh">麻醉部晨會專題</span>
+        <span class="lang-en">Anesthesia Morning Meeting</span>
+      </h2>
+      <p class="sidebar-subtitle">BJA 2025 ECG-MACE Deep Learning</p>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="#sec-intro" class="active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span><span class="lang-zh">1. 寫程式 vs. ML</span><span class="lang-en">1. Programming vs. ML</span></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#sec-paradigms">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <span><span class="lang-zh">2. 三大主流學習方式</span><span class="lang-en">2. ML Paradigms</span></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#sec-dl-cnn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span><span class="lang-zh">3. ML 痛點 ➔ DL ➔ 1D-CNN</span><span class="lang-en">3. Pain Points ➔ DL & 1D-CNN</span></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#sec-model">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"/><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"/><circle cx="8" cy="12" r="2"/></svg>
+          <span><span class="lang-zh">4. 論文多模態晚期融合</span><span class="lang-en">4. Multimodal Late Fusion</span></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#sec-xai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span><span class="lang-zh">5. 反事實可解釋性 (XAI)</span><span class="lang-en">5. Counterfactual XAI</span></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#sec-results">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <span><span class="lang-zh">6. 成果對比與臨床價值</span><span class="lang-en">6. Results & Clinical Impact</span></span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="presenter-card">
+        <div><strong><span class="lang-zh">講者：</span><span class="lang-en">Presenter:</span></strong> UGY 謝一陽</div>
+        <div style="margin-top: 4px;"><strong><span class="lang-zh">指導：</span><span class="lang-en">Supervisors:</span></strong> VS 周韋翰 / CR 李孟柔</div>
+      </div>
+      <div class="sidebar-controls">
+        <div class="btn-group">
+          <button class="btn-toggle lang-btn active" data-lang="zh">中</button>
+          <button class="btn-toggle lang-btn" data-lang="en">EN</button>
+        </div>
+        <button class="icon-btn" id="themeToggle" title="Toggle Dark/Light Mode">
+          <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       Main Content Area
+       ========================================================================= -->
+  <main class="main-content">
+    
+    <!-- Top Journal Header Bar -->
+    <header class="top-bar">
+      <div class="journal-pill">
+        <span class="journal-badge">BJA 2025</span>
+        <span>British Journal of Anaesthesia, Vol. 135 (5), 1161–1171</span>
+      </div>
+      <div style="font-size: 0.84rem; color: var(--text-muted);">
+        DOI: <code>10.1016/j.bja.2025.07.085</code>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         Section 1: Programming vs. Machine Learning
+         ========================================================================= -->
+    <section class="section-container" id="sec-intro">
+      <div class="section-header">
+        <span class="section-tag">Part 01</span>
+        <h2 class="section-title">
+          <span class="lang-zh">從寫程式到機器學習：思維的典範轉移</span>
+          <span class="lang-en">From Programming to ML: The Paradigm Shift</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">理解人工寫死規則（Rule-Based）與演算法自主學習（Machine Learning）的本質差異。</span>
+          <span class="lang-en">Understanding the fundamental difference between handcrafted rules and learned representations.</span>
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Card 1: Treasure Hunt Metaphor -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">尋寶路線比喻 (Treasure Hunt)</span>
+              <span class="lang-en">Treasure Hunt Metaphor</span>
+            </h3>
+            <span class="badge badge-primary">Concept</span>
+          </div>
+          <div style="border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border-color);">
+            <img src="assets/ml_vs_programming_treasure.jpg" alt="Programming vs ML Metaphor" style="width: 100%; display: block;">
+          </div>
+          <ul style="padding-left: 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;">
+            <li><strong style="color: var(--text-main);">傳統寫程式</strong>：工程師鋪設好一條固定石板步道（<code>if-else</code>），電腦照著走到達寶藏。</li>
+            <li><strong style="color: var(--text-main);">機器學習</strong>：只給起點（Data）與寶藏（Goal），中間路線是個<strong>大問號（？）</strong>，演算法必須自己透過試錯學出最佳路線！</li>
+          </ul>
+        </div>
+
+        <!-- Card 2: Classic Funnel Paradigm -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">經典漏斗圖 (The Classic Paradigm)</span>
+              <span class="lang-en">The Classic Paradigm</span>
+            </h3>
+            <span class="badge badge-success">Formulation</span>
+          </div>
+          <div style="background: #ffffff; padding: 12px; border-radius: var(--radius-md); text-align: center; margin-bottom: 16px; border: 1px solid var(--border-color);">
+            <img src="assets/classic_funnel_paradigm.jpg" alt="Classic Funnel Paradigm" style="max-height: 180px; width: auto; object-fit: contain;">
+            <div style="font-size: 0.72rem; color: #64748b; margin-top: 6px;">Source: Classical vs Machine Learning Paradigm</div>
+          </div>
+          
+          <div class="pipeline-box" style="flex-direction: column; align-items: stretch; gap: 10px;">
+            <div style="font-size: 0.86rem;">
+              <span class="badge badge-warning" style="margin-right: 6px;">Classical</span>
+              <strong>Data + Rules (Program) ➔ Output (Results)</strong>
+            </div>
+            <div style="font-size: 0.86rem;">
+              <span class="badge badge-primary" style="margin-right: 6px;">Machine Learning</span>
+              <strong>Data + Answers (Goal) ➔ Learned Rules (Model)</strong>
+            </div>
+          </div>
+          <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 10px;">
+            <span class="lang-zh">核心意義：給 37,000 例心電圖 + 術後有無心梗（目標答案），讓電腦自學高維危險特徵。</span>
+            <span class="lang-en">Core concept: Feed 37,000 ECGs + postop outcomes to let the AI learn complex risk patterns.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         Section 2: Machine Learning Paradigms (Top Overview + Bottom Tabs)
+         ========================================================================= -->
+    <section class="section-container" id="sec-paradigms">
+      <div class="section-header">
+        <span class="section-tag">Part 02</span>
+        <h2 class="section-title">
+          <span class="lang-zh">機器學習的三大主流學習方式</span>
+          <span class="lang-en">Main Machine Learning Paradigms</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">監督式學習、非監督式學習與強化學習之總論架構對照與經典生活實例。</span>
+          <span class="lang-en">Supervised, Unsupervised, and Reinforcement Learning with Classic Benchmarks.</span>
+        </p>
+      </div>
+
+      <!-- Top Overview: 2 Comparison Images Side-by-Side -->
+      <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card" style="text-align: center;">
+          <div class="card-header">
+            <h4 class="card-title" style="font-size: 1rem;">
+              <span class="lang-zh">流程架構對比 (Input ➔ Mechanism ➔ Output)</span>
+              <span class="lang-en">Pipeline Architecture Comparison</span>
+            </h4>
+            <span class="badge badge-primary">TheAIOps</span>
+          </div>
+          <div style="background: #ffffff; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 220px;">
+            <img src="assets/ml_types_comparison.png" alt="ML Types Architecture Comparison" style="max-height: 200px; max-width: 100%; object-fit: contain;">
+          </div>
+          <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 8px;">
+            出處：<a href="https://www.theaiops.com/wp-content/uploads/2024/08/image-30-1024x523.png" target="_blank" style="color: var(--primary); text-decoration: none;">TheAIOps / GeeksforGeeks</a>
+          </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+          <div class="card-header">
+            <h4 class="card-title" style="font-size: 1rem;">
+              <span class="lang-zh">任務形態手繪直覺對比 (Clustering / Boundary / Policy)</span>
+              <span class="lang-en">Handdrawn Intuitive Task Comparison</span>
+            </h4>
+            <span class="badge badge-success">Medium</span>
+          </div>
+          <div style="background: #ffffff; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 220px;">
+            <img src="assets/ml_types_handdrawn.webp" alt="ML Types Handdrawn Comparison" style="max-height: 200px; max-width: 100%; object-fit: contain;">
+          </div>
+          <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 8px;">
+            出處：<a href="https://miro.medium.com/v2/resize:fit:1025/1*phWriU47q3GKM6hKbUQ-4g.webp" target="_blank" style="color: var(--primary); text-decoration: none;">Medium - Machine Learning Types</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Interactive Tabs for 3 ML Paradigms -->
+      <div class="card tab-container">
+        <div class="tab-nav">
+          <button class="tab-btn active">
+            <span class="lang-zh">A. 監督式學習 (Supervised ★本論文)</span>
+            <span class="lang-en">A. Supervised Learning</span>
+          </button>
+          <button class="tab-btn">
+            <span class="lang-zh">B. 非監督式學習 (Unsupervised)</span>
+            <span class="lang-en">B. Unsupervised Learning</span>
+          </button>
+          <button class="tab-btn">
+            <span class="lang-zh">C. 強化學習 (Reinforcement)</span>
+            <span class="lang-en">C. Reinforcement Learning</span>
+          </button>
+        </div>
+
+        <!-- Tab Pane 1: Supervised -->
+        <div class="tab-pane active">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h4 style="color: var(--primary); font-size: 1.05rem;">
+                <span class="lang-zh">給題目也給標準答案 (Data with Labels)</span>
+                <span class="lang-en">Learning with Labeled Ground Truth</span>
+              </h4>
+              <span class="badge badge-primary">本篇論文採用</span>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+              <strong>運作機制：</strong> 同時給予輸入題目 <var>X</var> 與標準答案 <var>Y</var>。模型猜錯時計算誤差（Error），透過反向傳播修正權重，在特徵空間中劃出分類決策邊界（Decision Boundary）或回歸擬合線。
+            </p>
+
+            <!-- Top Row: Examples -->
+            <div style="background: var(--card-bg-elevated); padding: 14px 18px; border-radius: var(--radius-sm); border-left: 3px solid var(--primary);">
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 8px;">
+                【應用實例 (Applications & Examples)】
+              </div>
+              <ul style="padding-left: 18px; font-size: 0.88rem; line-height: 1.75; color: var(--text-muted);">
+                <li><strong style="color: var(--primary); font-size: 0.92rem;">本論文模型 (BJA 2025 二元分類)：輸入 12 導程 ECG 原始連續波形 + 34 項病歷 ➔ 預測術後是否發生心肌梗塞 (MI)、院內死亡或複合 MACE (1/0)</strong></li>
+                <li><strong>垃圾郵件過濾 (Spam Detection)</strong>：信件文字 ➔ 判斷是否為垃圾信 (1/0)</li>
+                <li><strong>房價預測 (Price Regression)</strong>：坪數 / 地段 / 屋齡 ➔ 預測房屋售價連續數值</li>
+                <li><strong>手寫數字辨識 (MNIST)</strong>：手寫圖片像素 ➔ 辨識 0~9 數字類別</li>
+              </ul>
+            </div>
+
+            <!-- Bottom Row: Representative Algorithms -->
+            <div style="background: var(--card-bg-elevated); padding: 12px 18px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 6px;">
+                【代表演算法 (Representative Algorithms)】
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6;">
+                <strong>XGBoost</strong>、<strong>Random Forest</strong> (隨機森林)、<strong>Logistic Regression</strong> (邏輯斯迴歸)、<strong>SVM</strong> (支援向量機)、<strong>1D-CNN / 1D-ResNet</strong> (卷積殘差網路)、<strong>Transformer</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Pane 2: Unsupervised -->
+        <div class="tab-pane">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h4 style="color: var(--accent); font-size: 1.05rem;">
+                <span class="lang-zh">無標準答案，自行探索資料聚集規律 (Data without Labels)</span>
+                <span class="lang-en">Unsupervised Pattern Discovery & Clustering</span>
+              </h4>
+              <span class="badge badge-success">Pattern Discovery</span>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+              <strong>運作機制：</strong> 只有題目 <var>X</var>，沒有任何標籤 <var>Y</var>。演算法根據高維特徵之間的幾何距離與密度分佈，自主尋找資料的隱在群集（Clusters）或降低維度（Dimensionality Reduction）。
+            </p>
+
+            <!-- Top Row: Examples -->
+            <div style="background: var(--card-bg-elevated); padding: 14px 18px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 8px;">
+                【應用實例 (Applications & Examples)】
+              </div>
+              <ul style="padding-left: 18px; font-size: 0.88rem; line-height: 1.75; color: var(--text-muted);">
+                <li><strong>電商顧客消費習慣分群 (Customer Segmentation)</strong>：根據購買行為與偏好，自動劃分出高價值、潛在流失等不同消費族群</li>
+                <li><strong>串流平台推薦系統 (Spotify / Netflix)</strong>：透過特徵降維與聚類，自動推薦曲風相近的歌曲與電影</li>
+                <li><strong>社群網路社交圈偵測 (Community Detection)</strong>：根據用戶互動頻率自動識別緊密好友圈</li>
+              </ul>
+            </div>
+
+            <!-- Bottom Row: Representative Algorithms -->
+            <div style="background: var(--card-bg-elevated); padding: 12px 18px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--warning); text-transform: uppercase; margin-bottom: 6px;">
+                【代表演算法 (Representative Algorithms)】
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6;">
+                <strong>K-Means</strong> (K-平均分群)、<strong>PCA</strong> (主成分分析)、<strong>t-SNE</strong>、<strong>UMAP</strong>、<strong>Hierarchical Clustering</strong> (階層式分群)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Pane 3: Reinforcement -->
+        <div class="tab-pane">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h4 style="color: var(--warning); font-size: 1.05rem;">
+                <span class="lang-zh">在環境中試錯，由獎懲反饋學會最佳決策 (States + Actions)</span>
+                <span class="lang-en">Trial & Error with Reward Feedback</span>
+              </h4>
+              <span class="badge badge-warning">Dynamic Policy</span>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+              <strong>運作機制：</strong> 智能體（Agent）在環境中根據當前狀態（State）採取動作（Action）。達成良好目標給予獎勵（Reward +1），造成失誤給予懲罰（Penalty -1），學會最大化累積獎勵的最佳連續動態策略。
+            </p>
+
+            <!-- Top Row: Examples -->
+            <div style="background: var(--card-bg-elevated); padding: 14px 18px; border-radius: var(--radius-sm); border-left: 3px solid var(--warning);">
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--warning); text-transform: uppercase; margin-bottom: 8px;">
+                【應用實例 (Applications & Examples)】
+              </div>
+              <ul style="padding-left: 18px; font-size: 0.88rem; line-height: 1.75; color: var(--text-muted);">
+                <li><strong>AlphaGo 圍棋與西洋棋 AI</strong>：自我對弈數百萬盤，根據棋局勝負 (Win/Loss Reward) 學會超越人類頂尖棋力</li>
+                <li><strong>自動駕駛車輛決策 (Self-Driving Cars)</strong>：根據即時路況感測動態進行加減速、變換車道與避障轉向</li>
+                <li><strong>AI 玩電玩遊戲通關 (Atari / Super Mario / Dota 2)</strong>：透過遊戲得分與通關反饋自主學會高難度操作</li>
+              </ul>
+            </div>
+
+            <!-- Bottom Row: Representative Algorithms -->
+            <div style="background: var(--card-bg-elevated); padding: 12px 18px; border-radius: var(--radius-sm); border-left: 3px solid var(--danger);">
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--danger); text-transform: uppercase; margin-bottom: 6px;">
+                【代表演算法 (Representative Algorithms)】
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.6;">
+                <strong>Q-Learning</strong>、<strong>DQN</strong> (深度 Q 網路)、<strong>PPO</strong> (近端策略優化)、<strong>Actor-Critic</strong>、<strong>Policy Gradient</strong> (策略梯度)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         Section 3: Traditional ML Pain Points ➔ DL ➔ 1D-CNN
+         ========================================================================= -->
+    <section class="section-container" id="sec-dl-cnn">
+      <div class="section-header">
+        <span class="section-tag">Part 03</span>
+        <h2 class="section-title">
+          <span class="lang-zh">傳統 ML 痛點 ➔ 深度學習定義 ➔ 1D-CNN 原理</span>
+          <span class="lang-en">Traditional ML Bottleneck ➔ DL & 1D-CNN Mechanics</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">為什麼我們需要深度學習？透過皮卡丘 vs. CVC 梗圖看特徵工程的盲點，與 1D-CNN 時間軸滑動窗口。</span>
+          <span class="lang-en">Overcoming handcrafted feature engineering via end-to-end representation learning and 1D-CNN.</span>
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Interactive Pikachu vs CVC Meme Card -->
+        <div class="card" style="text-align: center;">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">趣味互動：我是誰？(Who's that?)</span>
+              <span class="lang-en">Interactive Reveal: Who's that?</span>
+            </h3>
+            <span class="badge badge-warning" id="memeStateBadge">
+              <span class="lang-zh">題目：我是誰？</span>
+              <span class="lang-en">Question: Who's that?</span>
+            </span>
+          </div>
+
+          <div class="meme-interactive-container">
+            <div class="meme-flip-card" id="memeCard">
+              <img src="assets/pikachu_shadow.png" alt="Shadow Question" class="meme-img shadow-layer">
+              <img src="assets/cvc_pikachu_meme.jpg" alt="CVC Reveal Answer" class="meme-img reveal-layer">
+            </div>
+
+            <button class="meme-click-hint" id="memeHint">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="lang-zh">點擊卡片揭曉真相答案！</span>
+              <span class="lang-en">Click Card to Reveal Answer!</span>
+            </button>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 14px; text-align: left; line-height: 1.6;">
+            <strong style="color: var(--danger);">概念反思：</strong> 若只依賴人類手動定義的粗糙外框特徵（像只看黑影量尺寸），就容易被表面特徵蒙蔽，漏掉內部真正複雜的幾何與病理結構！
+          </p>
+        </div>
+
+        <!-- Deep Learning Definition & 1D-CNN -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">DL 表徵學習與 1D-CNN 機制</span>
+              <span class="lang-en">DL Representation & 1D-CNN</span>
+            </h3>
+            <span class="badge badge-primary">Mechanism</span>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <h4 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 4px;">
+              <span class="lang-zh">1. 深度學習 (Deep Learning) 定義</span>
+              <span class="lang-en">1. Deep Learning Definition</span>
+            </h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              利用多層神經網絡直接從原始資料（12 &times; 5000 原始電壓）進行<strong>端到端表徵學習（End-to-End Representation Learning）</strong>，徹底擺脫手動測量 PR/QTc 的人為遺漏。
+            </p>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <h4 style="font-size: 0.95rem; color: var(--accent); margin-bottom: 4px;">
+              <span class="lang-zh">2. 1D-CNN 時間軸滑動窗口抽取</span>
+              <span class="lang-en">2. 1D-CNN Sliding Window</span>
+            </h4>
+            <div class="pipeline-box" style="flex-direction: column; align-items: stretch; gap: 8px; font-size: 0.82rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <strong>第 1 層 (淺層)：</strong> <span>捕捉極短時間內的微細電壓斜率與轉折 (Slope, dV/dt)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px dashed var(--border-subtle); padding-top: 4px;">
+                <strong>第 2 層 (中層)：</strong> <span>組合成 P 波、QRS 複合波、ST-T 段局部波形形態</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px dashed var(--border-subtle); padding-top: 4px;">
+                <strong>第 3 層 (深層)：</strong> <span>跨 12 導程空間整合，提煉全局電生理病理 (缺血/傳導阻滯)</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size: 0.85rem; color: var(--text-muted);">
+            <strong style="color: var(--text-main);">兩大核心優勢：</strong>
+            <span class="badge badge-success" style="margin: 0 4px;">局部感受野 (Local Receptive Fields)</span>
+            <span class="badge badge-primary">平移不變性 (Translation Invariance)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         Section 4: Multimodal Late Fusion Architecture
+         ========================================================================= -->
+    <section class="section-container" id="sec-model">
+      <div class="section-header">
+        <span class="section-tag">Part 04</span>
+        <h2 class="section-title">
+          <span class="lang-zh">本論文模型架構與選用理由</span>
+          <span class="lang-en">Multimodal Architecture & Rationale</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">1D-ResNet 殘差直通旁路 + MLP 病歷專家 + 晚期特徵拼接融合與全流程反向傳播。</span>
+          <span class="lang-en">1D-ResNet + MLP with Late Fusion and End-to-End Backpropagation.</span>
+        </p>
+      </div>
+
+      <!-- Architecture Flow Chart -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span class="lang-zh">雙支線多模態晚期融合 (Late Fusion Pipeline)</span>
+            <span class="lang-en">Dual-Branch Late Fusion Pipeline</span>
+          </h3>
+          <span class="badge badge-primary">Multimodal Deep Learning</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Waveform Branch -->
+          <div class="pipeline-box" style="background: var(--card-bg);">
+            <div class="pipeline-step" style="flex: 1.2;">
+              <span class="step-title">波形輸入 (Waveform Input)</span>
+              <div class="step-val" style="color: var(--primary); font-family: monospace;">12 &times; 5000 原始連續電壓</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">10 秒 500Hz 採樣點</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step" style="flex: 1.4;">
+              <span class="step-title">波形專科 AI</span>
+              <div class="step-val">1D-ResNet (殘差卷積)</div>
+              <div style="font-size: 0.75rem; color: var(--success);">直通旁路保底防止梯度消失</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step">
+              <span class="step-title">心電特徵向量</span>
+              <div class="step-val" style="font-family: monospace; color: var(--primary);">128 維 Embedding</div>
+            </div>
+          </div>
+
+          <!-- Tabular Branch -->
+          <div class="pipeline-box" style="background: var(--card-bg);">
+            <div class="pipeline-step" style="flex: 1.2;">
+              <span class="step-title">病歷表格 (Tabular Input)</span>
+              <div class="step-val" style="color: var(--accent); font-family: monospace;">34 項結構化臨床變數</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">年齡/共病ICD/手術風險/Labs</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step" style="flex: 1.4;">
+              <span class="step-title">病歷專科 AI</span>
+              <div class="step-val">MLP (多層感知機)</div>
+              <div style="font-size: 0.75rem; color: var(--accent);">全連接平滑神經元</div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step">
+              <span class="step-title">臨床特徵向量</span>
+              <div class="step-val" style="font-family: monospace; color: var(--accent);">32 維 Embedding</div>
+            </div>
+          </div>
+
+          <!-- Fusion Step -->
+          <div class="pipeline-box" style="background: var(--primary-light); border-color: var(--primary);">
+            <div class="pipeline-step">
+              <span class="step-title" style="color: var(--primary);">晚期特徵拼接 (Concatenation)</span>
+              <div class="step-val" style="font-family: monospace; font-size: 1.1rem; color: var(--primary);">
+                128 + 32 = 160 維綜合特徵向量
+              </div>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-step">
+              <span class="step-title">全連接決策層 (Dense + Sigmoid)</span>
+              <div class="step-val" style="color: var(--danger); font-size: 1.1rem; font-weight: 700;">
+                輸出 MACE 風險機率 (0% ~ 100%)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid for ResNet & Differential Explanations -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">
+              <span class="lang-zh">為什麼波形選 ResNet？(直通旁路原理)</span>
+              <span class="lang-en">Why ResNet? (Shortcut Connection)</span>
+            </h4>
+            <span class="badge badge-success">Skip Connection</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px;">
+            傳統深層網路（30~50 層）在反向傳播時梯度連續相乘小數會衰減為 0（梯度消失）。
+          </p>
+          <div style="background: var(--card-bg-elevated); padding: 12px; border-radius: var(--radius-sm); font-family: monospace; font-size: 0.85rem; margin-bottom: 10px;">
+            輸出 y = F(x) + x  (相鄰區塊直通旁路)
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+            <strong>保底機制：</strong> 即使深層神經元學不出新特徵（<var>F(x)</var> = 0），上一層特徵也能無損傳遞（<var>y = x</var>）；反向傳播多了一個保底的 +1，梯度暢通無阻回傳！
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">
+              <span class="lang-zh">為什麼表格用 MLP 不用 XGBoost？</span>
+              <span class="lang-en">Why MLP over Tree Models?</span>
+            </h4>
+            <span class="badge badge-primary">Differentiable</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px;">
+            樹模型（XGBoost）是「階梯斷崖式硬切分」，內部不可微分，誤差訊號無法穿透回傳。
+          </p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+            <strong>平滑旋鈕與連鎖律 (Chain Rule)：</strong> MLP 與 ResNet 均由連續可微的平滑旋鈕組成。猜錯時，<strong>反向傳播算法在 0.001 秒內將責任帳單倒流回傳</strong>，同時精確微調 500 萬個波形旋鈕與病歷旋鈕！
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         Section 5: Counterfactual XAI & Critical Appraisal
+         ========================================================================= -->
+    <section class="section-container" id="sec-xai">
+      <div class="section-header">
+        <span class="section-tag">Part 05</span>
+        <h2 class="section-title">
+          <span class="lang-zh">破解黑盒子：反事實可解釋性 (Counterfactual XAI)</span>
+          <span class="lang-en">Explainability: Counterfactual Framework & Critique</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">反事實找碴生成機制、三大電生理病理發現，以及「多模態過度代償」之批判性思考。</span>
+          <span class="lang-en">Difference map electrophysiological findings and critical appraisal of attribution bias.</span>
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Counterfactual Mechanism Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">反事實核心邏輯 (找碴修復法)</span>
+              <span class="lang-en">Counterfactual Perturbation Logic</span>
+            </h3>
+            <span class="badge badge-primary">XAI Method</span>
+          </div>
+
+          <div style="background: var(--card-bg-elevated); padding: 14px; border-radius: var(--radius-sm); margin-bottom: 16px; border-left: 3px solid var(--primary);">
+            <strong style="color: var(--primary);">反事實核心問題：</strong><br>
+            <em>「這張被判為 88% 高危的心電圖，波形要做怎樣的『最小良性微調』，AI 就會改判為低風險（&lt;15%）？」</em>
+          </div>
+
+          <div class="pipeline-box" style="flex-direction: column; align-items: stretch; gap: 8px; font-size: 0.85rem;">
+            <div>1. <strong>生成反事實正常 ECG</strong>：保持基線不變，反向生成安全波形。</div>
+            <div>2. <strong>兩圖相減產出殘差熱圖</strong>：<code>Difference Map = |真實波形 - 反事實波形|</code></div>
+            <div>3. <strong>病灶定位</strong>：相減顯著之處即為致病電生理區域！</div>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 12px;">
+            <strong>為什麼專注微調 ECG？</strong> 年齡與手術種類是無法改變的客觀事實；而心電圖是<strong>當前具備臨床可介入性（Actionable）的生理指標</strong>！
+          </p>
+        </div>
+
+        <!-- 3 Electrophysiological Findings -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">論文三大電生理發現 (Validation)</span>
+              <span class="lang-en">3 Electrophysiological Findings</span>
+            </h3>
+            <span class="badge badge-success">Clinically Verified</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: var(--card-bg-elevated); padding: 10px 14px; border-radius: var(--radius-sm);">
+              <strong style="color: var(--danger);">1. QRS 波群時間延長 (Prolonged QRS)</strong>
+              <div style="font-size: 0.84rem; color: var(--text-muted);">提示心室內傳導延遲、左心室肥厚、心肌纖維化。</div>
+            </div>
+            <div style="background: var(--card-bg-elevated); padding: 10px 14px; border-radius: var(--radius-sm);">
+              <strong style="color: var(--warning);">2. 低電位複波 (Low-Voltage Complexes)</strong>
+              <div style="font-size: 0.84rem; color: var(--text-muted);">提示心包積液、廣泛心肌缺損、浸潤性心肌病變。</div>
+            </div>
+            <div style="background: var(--card-bg-elevated); padding: 10px 14px; border-radius: var(--radius-sm);">
+              <strong style="color: var(--primary);">3. ST 段顯著壓低 (ST-Segment Depression)</strong>
+              <div style="font-size: 0.84rem; color: var(--text-muted);">提示進行中或隱匿性的內膜下心肌缺血 (Subendocardial Ischemia)。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critical Appraisal Callout Box -->
+      <div class="callout callout-warning">
+        <div class="callout-title">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="lang-zh">晨會亮點：方法學限制與批判性思考 (Critical Appraisal)</span>
+          <span class="lang-en">Critical Appraisal: Limitation of Multimodal Counterfactuals</span>
+        </div>
+        <p style="font-size: 0.9rem; line-height: 1.6;">
+          <strong>質疑：若高風險純粹來自「緊急大手術與洗腎」，演算法強迫只修復心電圖，會發生什麼事？</strong><br>
+          當病歷端（MLP）產生巨大風險時，演算法為了將總風險強行壓低，可能會在心電圖上產生<strong>「過度代償修改（Forced Over-compensation）」</strong>，導致殘差熱圖把正常雜訊誤標為嚴重病灶。未來研究應先透過 SHAP 拆解責任權重，再動態決定反事實標的，避免「病歷生病、卻硬在心電圖找藉口」！
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         Section 6: Results Comparison & Clinical Impact
+         ========================================================================= -->
+    <section class="section-container" id="sec-results">
+      <div class="section-header">
+        <span class="section-tag">Part 06</span>
+        <h2 class="section-title">
+          <span class="lang-zh">成果對比與麻醉臨床決策價值</span>
+          <span class="lang-en">Results Comparison & Clinical Takeaways</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">AUROC 效能全面超越 RCRI，與圍術期麻醉實務落地建議。</span>
+          <span class="lang-en">Comprehensive AUROC comparison vs. RCRI and perioperative practice pathways.</span>
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- AUROC Table Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">預測效能全面對比 (AUROC)</span>
+              <span class="lang-en">AUROC Performance Table</span>
+            </h3>
+            <span class="badge badge-success">P &lt; 0.001</span>
+          </div>
+
+          <table class="auroc-table">
+            <thead>
+              <tr>
+                <th>臨床主要終點</th>
+                <th>傳統 RCRI</th>
+                <th>純 ECG 模型</th>
+                <th>多模態融合</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>術後心肌梗塞 (MI)</strong></td>
+                <td>0.652</td>
+                <td>0.812</td>
+                <td class="highlight">0.858</td>
+              </tr>
+              <tr>
+                <td><strong>院內全因死亡</strong></td>
+                <td>0.724</td>
+                <td>0.846</td>
+                <td class="highlight">0.899</td>
+              </tr>
+              <tr>
+                <td><strong>複合不良結局 (MACE)</strong></td>
+                <td>0.681</td>
+                <td>0.795</td>
+                <td class="highlight">0.835</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 20px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">
+              術後心肌梗塞 (Postop MI) 鑑別力可視化長條圖：
+            </div>
+            <div class="bar-container">
+              <div class="bar-label">傳統 RCRI (0.652)</div>
+              <div class="bar-track">
+                <div class="bar-fill bar-rcri" data-width="65.2%">65.2%</div>
+              </div>
+            </div>
+            <div class="bar-container">
+              <div class="bar-label">純 ECG 模型 (0.812)</div>
+              <div class="bar-track">
+                <div class="bar-fill bar-ecg" data-width="81.2%">81.2%</div>
+              </div>
+            </div>
+            <div class="bar-container">
+              <div class="bar-label" style="color: var(--primary);">多模態融合 (0.858)</div>
+              <div class="bar-track">
+                <div class="bar-fill bar-fusion" data-width="85.8%">85.8%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perioperative Pathway Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span class="lang-zh">麻醉臨床決策落地指引 (3 階段)</span>
+              <span class="lang-en">3-Stage Perioperative Pathways</span>
+            </h3>
+            <span class="badge badge-primary">Practice Guide</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="background: var(--card-bg-elevated); padding: 12px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--primary);">
+              <strong style="color: var(--primary);">1. 術前評估階段 (Preoperative)</strong>
+              <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;">
+                針對 AI 預警之高危病患（即使 RCRI 低分），主動加排經胸前心臟超音波 (TTE) 或心臟科照會。
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg-elevated); padding: 12px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+              <strong style="color: var(--accent);">2. 術中麻醉監測 (Intraoperative)</strong>
+              <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;">
+                早期建立侵入性動脈導管 (A-line)，嚴格維持目標平均動脈壓 (MAP &ge; 65 mmHg)。
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg-elevated); padding: 12px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--danger);">
+              <strong style="color: var(--danger);">3. 術後照護監控 (Postoperative)</strong>
+              <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 2px;">
+                術後 48~72 小時常規追蹤高敏感度心肌酵素 (hs-Troponin)，早期診斷圍術期心肌損傷 (MINS)。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

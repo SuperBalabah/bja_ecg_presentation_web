@@ -1,0 +1,747 @@
+/* ==========================================================================
+   BJA 2025 ECG-MACE Medical Presentation - Quiet Luxury / Medical Modern CSS
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Light Mode */
+  --primary: #0284c7;
+  --primary-light: #e0f2fe;
+  --primary-hover: #0369a1;
+  --accent: #0d9488;
+  --accent-light: #ccfbf1;
+  --danger: #e11d48;
+  --danger-light: #ffe4e6;
+  --warning: #d97706;
+  --warning-light: #fef3c7;
+  --success: #16a34a;
+  --success-light: #dcfce7;
+  
+  --bg: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --card-bg: #ffffff;
+  --card-bg-elevated: #f1f5f9;
+  --border-color: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  --sidebar-width: 280px;
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --primary: #38bdf8;
+  --primary-light: rgba(56, 189, 248, 0.12);
+  --primary-hover: #7dd3fc;
+  --accent: #2dd4bf;
+  --accent-light: rgba(45, 212, 191, 0.12);
+  --danger: #fb7185;
+  --danger-light: rgba(251, 113, 133, 0.15);
+  --warning: #fbbf24;
+  --warning-light: rgba(251, 191, 36, 0.15);
+  --success: #4ade80;
+  --success-light: rgba(74, 222, 128, 0.15);
+  
+  --bg: #0b0f17;
+  --sidebar-bg: #111726;
+  --card-bg: #161e2e;
+  --card-bg-elevated: #1f293d;
+  --border-color: #232f45;
+  --border-subtle: #1a2334;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Base & Typography
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 15px;
+  overflow-x: hidden;
+  display: flex;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+code, pre {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+var {
+  font-family: 'Outfit', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--primary);
+  padding: 0 2px;
+}
+
+/* Language Visibility */
+html[data-lang="zh"] .lang-en { display: none !important; }
+html[data-lang="en"] .lang-zh { display: none !important; }
+
+/* ==========================================================================
+   Sidebar Navigation
+   ========================================================================== */
+
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: var(--transition-normal);
+}
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sidebar-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.nav-menu {
+  flex: 1;
+  padding: 16px 12px;
+  overflow-y: auto;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.nav-item a:hover {
+  background: var(--card-bg-elevated);
+  color: var(--text-main);
+}
+
+.nav-item a.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--sidebar-bg);
+}
+
+.presenter-card {
+  background: var(--card-bg-elevated);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.presenter-card strong {
+  color: var(--text-main);
+}
+
+.sidebar-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-group {
+  display: inline-flex;
+  background: var(--card-bg-elevated);
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.btn-toggle {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-toggle.active {
+  background: var(--card-bg);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-btn {
+  background: var(--card-bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.icon-btn:hover {
+  color: var(--text-main);
+  border-color: var(--primary);
+}
+
+.sun-icon { display: none; }
+[data-theme="dark"] .sun-icon { display: block; }
+[data-theme="dark"] .moon-icon { display: none; }
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 40px 48px 80px;
+  max-width: 1300px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.journal-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.journal-badge {
+  background: #be123c;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.section-container {
+  margin-bottom: 64px;
+  scroll-margin-top: 40px;
+}
+
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   Card Component System
+   ========================================================================== */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition-normal);
+  position: relative;
+}
+
+.card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ==========================================================================
+   Interactive Meme Card (Pikachu vs CVC)
+   ========================================================================== */
+
+.meme-interactive-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.meme-flip-card {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  background: #000;
+}
+
+.meme-flip-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}
+
+.meme-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
+}
+
+.meme-img.reveal-layer {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.meme-flip-card.revealed .meme-img.shadow-layer {
+  opacity: 0;
+}
+
+.meme-flip-card.revealed .meme-img.reveal-layer {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.meme-click-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-bg-elevated);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.meme-click-hint:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Interactive Tabs & Feature Inspectors
+   ========================================================================== */
+
+.tab-nav {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+  background: var(--card-bg-elevated);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Diagrams & Flow Charts
+   ========================================================================== */
+
+.pipeline-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--card-bg-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  margin: 12px 0;
+}
+
+.pipeline-step {
+  text-align: center;
+  flex: 1;
+}
+
+.pipeline-step .step-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.pipeline-step .step-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 4px;
+}
+
+.pipeline-arrow {
+  color: var(--text-subtle);
+  font-weight: bold;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-primary { background: var(--primary-light); color: var(--primary); }
+.badge-success { background: var(--success-light); color: var(--success); }
+.badge-danger { background: var(--danger-light); color: var(--danger); }
+.badge-warning { background: var(--warning-light); color: var(--warning); }
+
+/* ==========================================================================
+   AUROC Visual Bar Charts & Tables
+   ========================================================================== */
+
+.auroc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 0.92rem;
+}
+
+.auroc-table th, .auroc-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.auroc-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.auroc-table td.highlight {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.bar-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.bar-label {
+  width: 160px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.bar-track {
+  flex: 1;
+  height: 24px;
+  background: var(--card-bg-elevated);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 12px;
+  transition: width 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.bar-rcri { background: #94a3b8; }
+.bar-ecg { background: #0284c7; }
+.bar-fusion { background: linear-gradient(90deg, #0284c7, #0d9488); }
+
+/* ==========================================================================
+   Callout / Critical Appraisal Box
+   ========================================================================== */
+
+.callout {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  margin: 20px 0;
+  border-left: 4px solid;
+}
+
+.callout-warning {
+  background: var(--warning-light);
+  border-color: var(--warning);
+  color: var(--text-main);
+}
+
+.callout-info {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--text-main);
+}
+
+.callout-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   Presenter Script Collapsible Box
+   ========================================================================== */
+
+.script-box {
+  background: var(--card-bg-elevated);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-top: 20px;
+}
+
+.script-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.script-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.script-content {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    width: 240px;
+  }
+  .main-content {
+    margin-left: 240px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+}
