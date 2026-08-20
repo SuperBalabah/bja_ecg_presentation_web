@@ -291,9 +291,9 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 .main-content {
   margin-left: var(--sidebar-width);
   flex: 1;
-  padding: 40px 48px 80px;
-  max-width: 980px;
+  padding: 36px 48px 80px;
   width: calc(100% - var(--sidebar-width));
+  min-width: 0;
 }
 
 .top-bar {
