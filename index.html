@@ -64,6 +64,12 @@
           <span><span class="lang-zh">6. 成果對比與臨床價值</span><span class="lang-en">6. Results & Clinical Impact</span></span>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="#sec-takeaway">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span><span class="lang-zh">7. 晨會核心總結</span><span class="lang-en">7. Take-Home Messages</span></span>
+        </a>
+      </li>
     </ul>
 
     <div class="sidebar-footer">
@@ -778,6 +784,96 @@
                 術後 48~72 小時常規追蹤高敏感度心肌酵素 (hs-Troponin)，早期診斷圍術期心肌損傷 (MINS)。
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         Section 7: Take-Home Messages & Summary
+         ========================================================================= -->
+    <section class="section-container" id="sec-takeaway">
+      <div class="section-header">
+        <span class="section-tag">Part 07</span>
+        <h2 class="section-title">
+          <span class="lang-zh">晨會核心總結 (Take-Home Messages)</span>
+          <span class="lang-en">Take-Home Messages & Summary</span>
+        </h2>
+        <p class="section-desc">
+          <span class="lang-zh">回歸臨床實務：從模型架構、電生理可解釋性到圍術期麻醉決策之核心關鍵。</span>
+          <span class="lang-en">Connecting deep learning representations and XAI to actionable perioperative pathways.</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="takeaway-list">
+          <!-- Point 1 -->
+          <div class="takeaway-item">
+            <div class="takeaway-num">1</div>
+            <div class="takeaway-content">
+              <h4>
+                <span class="lang-zh">📊 預測力突破：從粗略 RCRI 到多模態深度學習</span>
+                <span class="lang-en">📊 Paradigm Shift in Risk Stratification</span>
+              </h4>
+              <p>
+                <span class="lang-zh">傳統 RCRI 僅 6 項粗略二元指標（AUROC 0.652）；本文結合 <strong>10 秒 12 導程 ECG 原始連續電壓（60,000 點）＋ 34 項結構化病歷</strong>，將術後心肌梗塞預測力大幅提升至 <strong>AUROC 0.858</strong>，院內死亡率達 <strong>0.899</strong>！</span>
+                <span class="lang-en">Moving beyond handcrafted binary scores (RCRI AUROC 0.652) by leveraging 60,000 raw ECG voltage points combined with 34 clinical variables, achieving superior discrimination (AUROC 0.858 for postop MI).</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Point 2 -->
+          <div class="takeaway-item">
+            <div class="takeaway-num">2</div>
+            <div class="takeaway-content">
+              <h4>
+                <span class="lang-zh">🧩 雙塔晚期融合 (Late Fusion)：專科分工與端到端連續可微</span>
+                <span class="lang-en">🧩 Dual-Branch Late Fusion Architecture</span>
+              </h4>
+              <p>
+                <span class="lang-zh">波形端利用 <strong>1D-ResNet 直通旁路保底</strong> 克服深層梯度消失；病歷端透過 <strong>連續可微 MLP</strong> 提取非線性共病加乘。兩路精華晚期拼接（128 + 32 = 160 維），反向傳播在毫秒內同步微調雙支線！</span>
+                <span class="lang-en">1D-ResNet with shortcut connections prevents gradient vanishing on waveforms, while MLP captures nonlinear clinical interactions. Late feature fusion ensures seamless end-to-end backpropagation.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Point 3 -->
+          <div class="takeaway-item">
+            <div class="takeaway-num">3</div>
+            <div class="takeaway-content">
+              <h4>
+                <span class="lang-zh">🔍 反事實可解釋性 (Counterfactual XAI) 與批判思維</span>
+                <span class="lang-en">🔍 Actionable XAI & Critical Appraisal</span>
+              </h4>
+              <p>
+                <span class="lang-zh">透過「虛擬修復波形」定位出 <strong>QRS 增寬、低電位與 ST 段壓低</strong> 三大關鍵致病病灶，具備臨床可介入性（Actionable）。同時具備批判思考：警惕病歷高危引起的「心電圖過度代償」歸因偏差！</span>
+                <span class="lang-en">Counterfactual difference maps pinpointed prolonged QRS, low voltage, and ST depression as primary targets. Critical takeaway: avoid forced ECG over-compensation when systemic surgical risks dominate.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Point 4 -->
+          <div class="takeaway-item">
+            <div class="takeaway-num">4</div>
+            <div class="takeaway-content">
+              <h4>
+                <span class="lang-zh">💉 麻醉圍術期臨床落地指引 (Actionable Pathways)</span>
+                <span class="lang-en">💉 3-Stage Perioperative Action Pathways</span>
+              </h4>
+              <p>
+                <span class="lang-zh"><strong>術前：</strong>AI 預警高危病患主動照會心臟科或加排心超 (TTE)；<strong>術中：</strong>早期建立 A-line，嚴格維持 <var>MAP &ge; 65 mmHg</var>；<strong>術後：</strong>常規 48~72h 追蹤 hs-Troponin 早期攔截 MINS。</span>
+                <span class="lang-en">Preop proactive cardiology/echo referrals; Intraop early A-line arterial line placement targeting MAP >= 65 mmHg; Postop routine 48-72h hs-Troponin surveillance to capture subclinical MINS early.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Golden Takeaway Banner -->
+        <div class="takeaway-quote-banner">
+          <div class="takeaway-quote-text">
+            <span class="lang-zh">💡 「AI 不是要取代麻醉科醫師，而是透過多模態深度學習，在術前為我們點亮肉眼與傳統評估工具看不見的隱匿性高危警訊！」</span>
+            <span class="lang-en">💡 "AI is not here to replace clinicians—it illuminates hidden perioperative cardiovascular vulnerabilities directly from raw multimodal signals."</span>
           </div>
         </div>
       </div>
