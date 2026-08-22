@@ -261,15 +261,14 @@ function initDecisionTree() {
   if (!treeWrapper) return;
 
   let currentStep = 0;
-  const maxStep = 5;
+  const maxStep = 4;
 
   const stepDescriptions = [
-    { zh: 'Step 0 / 5 (點擊開始)', en: 'Step 0 / 5 (Click to Start)' },
-    { zh: 'Step 1 / 5: 性別判定 ➔【女】', en: 'Step 1 / 5: Gender ➔ Female' },
-    { zh: 'Step 2 / 5: 職級判定 ➔【R 住院醫師】', en: 'Step 2 / 5: Rank ➔ Resident (R)' },
-    { zh: 'Step 3 / 5: 年資判定 ➔【Senior R】', en: 'Step 3 / 5: Seniority ➔ Senior R' },
-    { zh: 'Step 4 / 5: 特徵判定 ➔【技術好/對學生好/有染髮】', en: 'Step 4 / 5: Features ➔ Excellent & Dyed Hair' },
-    { zh: 'Step 5 / 5: 🎯 判定輸出：李孟柔 醫師！', en: 'Step 5 / 5: 🎯 Output: Dr. Meng-Jou Lee!' }
+    { zh: 'Step 0 / 4 (點擊開始)', en: 'Step 0 / 4 (Click to Start)' },
+    { zh: 'Step 1 / 4: 性別判定 ➔【★ 女】', en: 'Step 1 / 4: Gender ➔ Female' },
+    { zh: 'Step 2 / 4: 職級判定 ➔【★ R 住院醫師】', en: 'Step 2 / 4: Rank ➔ Resident (R)' },
+    { zh: 'Step 3 / 4: 年資判定 ➔【★ Senior R】', en: 'Step 3 / 4: Seniority ➔ Senior R' },
+    { zh: 'Step 4 / 4: 🎯 判定輸出：李孟柔 醫師！', en: 'Step 4 / 4: 🎯 Output: Dr. Meng-Jou Lee!' }
   ];
 
   function updateTree() {
@@ -296,7 +295,7 @@ function initDecisionTree() {
       } else if (currentStep === maxStep - 1) {
         nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg> <span>${isZh ? '揭曉目標！' : 'Reveal Target!'}</span>`;
       } else {
-        nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg> <span>${isZh ? '下一步分支' : 'Next Branch'}</span>`;
+        nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg> <span>${isZh ? '下一步分支' : 'Next Split'}</span>`;
       }
     }
   }
@@ -327,6 +326,13 @@ function initDecisionTree() {
 
   if (treeCanvas) treeCanvas.addEventListener('click', () => {
     nextStep();
+  });
+
+  // Re-update on language switch
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(updateTree, 50);
+    });
   });
 
   updateTree();
