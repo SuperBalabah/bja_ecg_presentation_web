@@ -1,14 +1,15 @@
 /**
  * BJA 2025 ECG-MACE Interactive Medical Presentation Script
- * Features: Dark/Light Mode, Bilingual ZH/EN, Interactive Flip Cards, Animated Charts
+ * Features: Drawer Navigation, Collapsible Deep Dives, Dark/Light Theme, Bilingual, Charts
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initLanguage();
+  initDrawerNavigation();
+  initCollapsibles();
   initMemeFlip();
   initTabs();
-  initScriptToggles();
   initSmoothScroll();
   initIntersectionAnimations();
   initKeyboardNav();
@@ -58,7 +59,76 @@ function updateLangButtons(activeLang) {
 }
 
 // ==========================================
-// 3. Interactive Meme Flip Card (Pikachu vs CVC)
+// 3. Collapsible Drawer Sidebar Navigation
+// ==========================================
+function initDrawerNavigation() {
+  const navToggle = document.getElementById('navToggle');
+  const closeDrawer = document.getElementById('closeDrawer');
+  const sidebar = document.getElementById('sidebarDrawer');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  const navLinks = document.querySelectorAll('.nav-item a');
+
+  function openSidebar() {
+    if (sidebar) sidebar.classList.add('open');
+    if (backdrop) backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    if (sidebar) sidebar.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (navToggle) navToggle.addEventListener('click', openSidebar);
+  if (closeDrawer) closeDrawer.addEventListener('click', closeSidebar);
+  if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeSidebar();
+    });
+  });
+
+  // ESC to close drawer
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
+}
+
+// ==========================================
+// 4. Collapsible Deep-Dive Sections (Accordions)
+// ==========================================
+function toggleCollapse(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  el.classList.toggle('collapsed');
+  const hint = el.querySelector('.expand-hint-badge');
+  if (hint) {
+    const isCollapsed = el.classList.contains('collapsed');
+    const isZh = document.documentElement.getAttribute('data-lang') === 'zh';
+    hint.textContent = isCollapsed ? (isZh ? '點擊展開' : 'Expand') : (isZh ? '點擊收起' : 'Collapse');
+  }
+}
+window.toggleCollapse = toggleCollapse;
+
+function initCollapsibles() {
+  document.querySelectorAll('.collapsible-trigger').forEach(trigger => {
+    trigger.setAttribute('role', 'button');
+    trigger.setAttribute('tabindex', '0');
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger.click();
+      }
+    });
+  });
+}
+
+// ==========================================
+// 5. Interactive Meme Flip Card (Pikachu vs CVC)
 // ==========================================
 function initMemeFlip() {
   const memeCard = document.getElementById('memeCard');
@@ -73,8 +143,8 @@ function initMemeFlip() {
 
     if (memeHint) {
       memeHint.innerHTML = isRevealed 
-        ? `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span class="lang-zh">點擊變回黑影題目</span><span class="lang-en">Click to Hide</span>`
-        : `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span class="lang-zh">點擊揭曉真相答案！</span><span class="lang-en">Click to Reveal Answer!</span>`;
+        ? `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span class="lang-zh">點擊變回黑影題目</span><span class="lang-en">Click to Hide</span>`
+        : `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span class="lang-zh">點擊揭曉真相答案！</span><span class="lang-en">Click to Reveal Answer!</span>`;
     }
 
     if (memeStateBadge) {
@@ -90,7 +160,7 @@ function initMemeFlip() {
 }
 
 // ==========================================
-// 4. Tab Navigation System
+// 6. Tab Navigation System
 // ==========================================
 function initTabs() {
   document.querySelectorAll('.tab-container').forEach(container => {
@@ -112,27 +182,7 @@ function initTabs() {
 }
 
 // ==========================================
-// 5. Presenter Script Collapsible Box
-// ==========================================
-function initScriptToggles() {
-  document.querySelectorAll('.script-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const box = header.closest('.script-box');
-      const content = box.querySelector('.script-content');
-      if (content) {
-        const isOpen = content.style.display !== 'none';
-        content.style.display = isOpen ? 'none' : 'block';
-        const icon = header.querySelector('.script-icon');
-        if (icon) {
-          icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-        }
-      }
-    });
-  });
-}
-
-// ==========================================
-// 6. Smooth Scroll & Active Sidebar Link
+// 7. Smooth Scroll & Active Link Detection
 // ==========================================
 function initSmoothScroll() {
   const navLinks = document.querySelectorAll('.nav-item a');
@@ -141,7 +191,7 @@ function initSmoothScroll() {
   window.addEventListener('scroll', () => {
     let currentId = '';
     sections.forEach(section => {
-      const top = section.offsetTop - 120;
+      const top = section.offsetTop - 140;
       if (window.pageYOffset >= top) {
         currentId = section.getAttribute('id');
       }
@@ -154,7 +204,7 @@ function initSmoothScroll() {
 }
 
 // ==========================================
-// 7. Animated Visual Bars on Scroll
+// 8. Animated Visual Bars on Scroll
 // ==========================================
 function initIntersectionAnimations() {
   const bars = document.querySelectorAll('.bar-fill');
@@ -167,7 +217,7 @@ function initIntersectionAnimations() {
         }
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.2 });
 
   bars.forEach(bar => {
     bar.style.width = '0%';
@@ -176,19 +226,19 @@ function initIntersectionAnimations() {
 }
 
 // ==========================================
-// 8. Keyboard Presentation Navigation (Up / Down)
+// 9. Keyboard Presentation Navigation (Up/Down/PgUp/PgDn)
 // ==========================================
 function initKeyboardNav() {
   const sections = Array.from(document.querySelectorAll('.section-container'));
   let currentIndex = 0;
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+    if (['ArrowDown', 'PageDown', 'j'].includes(e.key)) {
       if (currentIndex < sections.length - 1) {
         currentIndex++;
         sections[currentIndex].scrollIntoView({ behavior: 'smooth' });
       }
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    } else if (['ArrowUp', 'PageUp', 'k'].includes(e.key)) {
       if (currentIndex > 0) {
         currentIndex--;
         sections[currentIndex].scrollIntoView({ behavior: 'smooth' });
