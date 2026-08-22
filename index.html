@@ -392,114 +392,109 @@
                 </div>
               </div>
 
-              <!-- Unified SVG Decision Tree (100% Mathematically Aligned) -->
+              <!-- Unified SVG Decision Tree (Japanese Minimalist Aesthetic & Spacious Layout) -->
               <div class="tree-svg-container" id="treeCanvas" title="點擊圖表前進下一步分支">
-                <svg viewBox="0 0 980 620" class="tree-vector-graphic">
+                <svg viewBox="0 0 1000 730" class="tree-vector-graphic">
                   <defs>
-                    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="4" result="blur" />
+                    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
                       <feComposite in="SourceGraphic" in2="blur" operator="over" />
                     </filter>
-                    <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="6" result="blur" />
+                    <filter id="sakuraGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="5" result="blur" />
                       <feComposite in="SourceGraphic" in2="blur" operator="over" />
                     </filter>
                   </defs>
 
                   <!-- ================= LEVEL 0: ROOT NODE ================= -->
                   <g class="tree-group step-0">
-                    <rect x="390" y="20" width="200" height="50" rx="8" class="svg-node-box decision-node root-box" />
-                    <text x="490" y="52" class="svg-node-text font-bold">性別？ (Gender?)</text>
+                    <rect x="380" y="20" width="240" height="48" rx="10" class="svg-node-box decision-node root-box" />
+                    <text x="500" y="45" class="svg-node-text font-bold">性別？ (Gender?)</text>
                   </g>
 
                   <!-- ================= LEVEL 1: GENDER SPLIT ================= -->
                   <g class="tree-group step-elem step-1">
                     <!-- Inactive Branch: Male -->
-                    <line x1="490" y1="70" x2="240" y2="160" class="svg-branch-line inactive-line" />
-                    <!-- Male Label -->
-                    <rect x="300" y="100" width="100" height="30" rx="6" class="svg-edge-badge" />
-                    <text x="350" y="120" class="svg-edge-text">男 (Male)</text>
-                    <!-- Inactive Leaf -->
-                    <rect x="160" y="160" width="160" height="42" rx="8" class="svg-node-box inactive-leaf" />
-                    <text x="240" y="186" class="svg-node-text small">其他男醫師 (Others)</text>
+                    <line x1="500" y1="68" x2="240" y2="195" class="svg-branch-line inactive-line" />
+                    <rect x="270" y="115" width="115" height="30" rx="8" class="svg-edge-badge inactive-badge" />
+                    <text x="327" y="131" class="svg-edge-text">男 (Male)</text>
+                    <rect x="150" y="195" width="180" height="44" rx="10" class="svg-node-box inactive-leaf" />
+                    <text x="240" y="218" class="svg-node-text small">其他男醫師 (Others)</text>
 
                     <!-- Active Target Branch: Female -->
-                    <line x1="490" y1="70" x2="680" y2="160" class="svg-branch-line target-line" />
-                    <!-- Female Label -->
-                    <rect x="535" y="98" width="125" height="34" rx="6" class="svg-edge-badge target-edge" />
-                    <text x="597" y="120" class="svg-edge-text font-bold">★ 女 (Female)</text>
+                    <line x1="500" y1="68" x2="700" y2="195" class="svg-branch-line target-line" />
+                    <rect x="535" y="112" width="135" height="34" rx="8" class="svg-edge-badge target-edge" />
+                    <text x="602" y="130" class="svg-edge-text font-bold">★ 女 (Female)</text>
                     <!-- Level 1 Decision Node -->
-                    <rect x="585" y="160" width="190" height="50" rx="8" class="svg-node-box decision-node" />
-                    <text x="680" y="192" class="svg-node-text font-bold">職級？ (Rank?)</text>
+                    <rect x="585" y="195" width="230" height="48" rx="10" class="svg-node-box decision-node" />
+                    <text x="700" y="220" class="svg-node-text font-bold">職級？ (Rank?)</text>
                   </g>
 
                   <!-- ================= LEVEL 2: RANK SPLIT ================= -->
                   <g class="tree-group step-elem step-2">
                     <!-- Inactive Branch: PGY -->
-                    <line x1="680" y1="210" x2="470" y2="300" class="svg-branch-line inactive-line" />
-                    <rect x="520" y="242" width="75" height="28" rx="6" class="svg-edge-badge" />
-                    <text x="557" y="261" class="svg-edge-text">PGY</text>
-                    <rect x="400" y="300" width="140" height="40" rx="8" class="svg-node-box inactive-leaf" />
-                    <text x="470" y="325" class="svg-node-text small">PGY 醫師</text>
+                    <line x1="700" y1="243" x2="430" y2="365" class="svg-branch-line inactive-line" />
+                    <rect x="475" y="285" width="90" height="28" rx="6" class="svg-edge-badge inactive-badge" />
+                    <text x="520" y="300" class="svg-edge-text">PGY</text>
+                    <rect x="350" y="365" width="160" height="42" rx="8" class="svg-node-box inactive-leaf" />
+                    <text x="430" y="387" class="svg-node-text small">PGY 醫師</text>
 
                     <!-- Inactive Branch: VS -->
-                    <line x1="680" y1="210" x2="880" y2="300" class="svg-branch-line inactive-line" />
-                    <rect x="780" y="242" width="80" height="28" rx="6" class="svg-edge-badge" />
-                    <text x="820" y="261" class="svg-edge-text">VS</text>
-                    <rect x="800" y="300" width="160" height="40" rx="8" class="svg-node-box inactive-leaf" />
-                    <text x="880" y="325" class="svg-node-text small">主治醫師 (VS)</text>
+                    <line x1="700" y1="243" x2="910" y2="365" class="svg-branch-line inactive-line" />
+                    <rect x="785" y="285" width="80" height="28" rx="6" class="svg-edge-badge inactive-badge" />
+                    <text x="825" y="300" class="svg-edge-text">VS</text>
+                    <rect x="830" y="365" width="160" height="42" rx="8" class="svg-node-box inactive-leaf" />
+                    <text x="910" y="387" class="svg-node-text small">主治醫師 (VS)</text>
 
                     <!-- Active Target Branch: Resident (R) -->
-                    <line x1="680" y1="210" x2="680" y2="300" class="svg-branch-line target-line" />
-                    <rect x="615" y="240" width="130" height="34" rx="6" class="svg-edge-badge target-edge" />
-                    <text x="680" y="262" class="svg-edge-text font-bold">★ R (住院醫師)</text>
+                    <line x1="700" y1="243" x2="700" y2="365" class="svg-branch-line target-line" />
+                    <rect x="625" y="282" width="150" height="34" rx="8" class="svg-edge-badge target-edge" />
+                    <text x="700" y="300" class="svg-edge-text font-bold">★ R (住院醫師)</text>
                     <!-- Level 2 Decision Node -->
-                    <rect x="585" y="300" width="190" height="50" rx="8" class="svg-node-box decision-node" />
-                    <text x="680" y="332" class="svg-node-text font-bold">年資？ (Seniority?)</text>
+                    <rect x="585" y="365" width="230" height="48" rx="10" class="svg-node-box decision-node" />
+                    <text x="700" y="390" class="svg-node-text font-bold">年資？ (Seniority?)</text>
                   </g>
 
                   <!-- ================= LEVEL 3: SENIORITY SPLIT ================= -->
                   <g class="tree-group step-elem step-3">
                     <!-- Inactive Branch: Junior R -->
-                    <line x1="680" y1="350" x2="520" y2="440" class="svg-branch-line inactive-line" />
-                    <rect x="545" y="380" width="105" height="28" rx="6" class="svg-edge-badge" />
-                    <text x="597" y="399" class="svg-edge-text">Junior R</text>
-                    <rect x="440" y="440" width="150" height="42" rx="8" class="svg-node-box inactive-leaf" />
-                    <text x="515" y="466" class="svg-node-text small">Junior 住院醫師</text>
+                    <line x1="700" y1="413" x2="480" y2="525" class="svg-branch-line inactive-line" />
+                    <rect x="505" y="450" width="110" height="28" rx="6" class="svg-edge-badge inactive-badge" />
+                    <text x="560" y="465" class="svg-edge-text">Junior R</text>
+                    <rect x="390" y="525" width="180" height="42" rx="8" class="svg-node-box inactive-leaf" />
+                    <text x="480" y="547" class="svg-node-text small">Junior 住院醫師</text>
 
                     <!-- Active Target Branch: Senior R -->
-                    <line x1="680" y1="350" x2="770" y2="440" class="svg-branch-line target-line" />
-                    <rect x="690" y="378" width="145" height="34" rx="6" class="svg-edge-badge target-edge" />
-                    <text x="762" y="400" class="svg-edge-text font-bold">★ Senior R (CR)</text>
+                    <line x1="700" y1="413" x2="780" y2="525" class="svg-branch-line target-line" />
+                    <rect x="670" y="448" width="155" height="34" rx="8" class="svg-edge-badge target-edge" />
+                    <text x="747" y="466" class="svg-edge-text font-bold">★ Senior R (CR)</text>
                     <!-- Level 3 Decision Node -->
-                    <rect x="655" y="440" width="230" height="50" rx="8" class="svg-node-box decision-node" />
-                    <text x="770" y="472" class="svg-node-text font-bold">臨床與外型特徵？</text>
+                    <rect x="655" y="525" width="250" height="48" rx="10" class="svg-node-box decision-node" />
+                    <text x="780" y="550" class="svg-node-text font-bold">臨床與外型特徵？</text>
                   </g>
 
                   <!-- ================= LEVEL 4: SPECIAL FEATURES & FINAL TARGET ================= -->
                   <g class="tree-group step-elem step-4">
                     <!-- Inactive Branch: Other traits -->
-                    <line x1="770" y1="490" x2="560" y2="560" class="svg-branch-line inactive-line" />
-                    <rect x="620" y="512" width="75" height="28" rx="6" class="svg-edge-badge" />
-                    <text x="657" y="531" class="svg-edge-text">否 (No)</text>
-                    <rect x="480" y="560" width="150" height="40" rx="8" class="svg-node-box inactive-leaf" />
-                    <text x="555" y="585" class="svg-node-text small">其他住院醫師</text>
+                    <line x1="780" y1="573" x2="510" y2="675" class="svg-branch-line inactive-line" />
+                    <rect x="565" y="605" width="90" height="28" rx="6" class="svg-edge-badge inactive-badge" />
+                    <text x="610" y="620" class="svg-edge-text">否 (No)</text>
+                    <rect x="420" y="675" width="180" height="42" rx="8" class="svg-node-box inactive-leaf" />
+                    <text x="510" y="697" class="svg-node-text small">其他住院醫師</text>
 
-                    <!-- Active Target Branch: Gold Master Features -->
-                    <line x1="770" y1="490" x2="790" y2="550" class="svg-branch-line final-gold-line" />
-                    <rect x="660" y="508" width="260" height="36" rx="8" class="svg-edge-badge final-gold-edge" />
-                    <text x="790" y="531" class="svg-edge-text font-bold gold-text">★ 技術好 ＆ 對學生好 ＆ 染髮</text>
+                    <!-- Active Target Branch: Special Features -->
+                    <line x1="780" y1="573" x2="780" y2="660" class="svg-branch-line final-target-line" />
+                    <rect x="640" y="602" width="280" height="36" rx="10" class="svg-edge-badge final-feature-edge" />
+                    <text x="780" y="621" class="svg-edge-text font-bold feature-text">★ 技術好 ＆ 對學生好 ＆ 染髮</text>
 
-                    <!-- FINAL LEAF TARGET NODE: Dr. Meng-Jou Lee -->
-                    <rect x="640" y="555" width="300" height="58" rx="12" class="svg-node-box gold-target-leaf" filter="url(#glowGold)" />
-                    <text x="790" y="582" class="svg-node-text target-title font-bold">🏆 李孟柔 醫師 (CR 李孟柔)</text>
-                    <text x="790" y="602" class="svg-node-text target-sub">麻醉部住院總醫師 / 指導醫師</text>
+                    <!-- FINAL LEAF TARGET NODE: Dr. Meng-Jou Lee (Pastel Sakura / Warm Coral) -->
+                    <rect x="625" y="660" width="310" height="56" rx="14" class="svg-node-box sakura-target-leaf" filter="url(#sakuraGlow)" />
+                    <text x="780" y="684" class="svg-node-text target-title font-bold">🌸 李孟柔 醫師 (CR 李孟柔)</text>
+                    <text x="780" y="703" class="svg-node-text target-sub">麻醉部住院總醫師 / 指導醫師</text>
                   </g>
                 </svg>
               </div>
             </div>
-          </div>
-        </div>
           </div>
         </div>
 

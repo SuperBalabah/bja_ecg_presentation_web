@@ -998,7 +998,7 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 /* ==========================================================================
-   Interactive Decision Tree (Classic Textbook SVG Style)
+   Interactive Decision Tree (Japanese Minimalist Pastel Palette)
    ========================================================================== */
 
 .tree-interactive-wrapper {
@@ -1029,13 +1029,13 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 .tree-step-pill {
-  background: var(--primary-light);
+  background: rgba(56, 189, 248, 0.15);
   color: var(--primary);
   font-weight: 800;
   font-size: 1.05rem;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1px solid rgba(56, 189, 248, 0.4);
+  border: 1px solid rgba(56, 189, 248, 0.35);
 }
 
 .tree-ctrl-btn {
@@ -1080,7 +1080,7 @@ html[data-lang="en"] .lang-zh { display: none !important; }
   background: var(--card-bg-elevated);
   border: 1px dashed var(--border-color);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 20px 10px;
   cursor: pointer;
   user-select: none;
   overflow-x: auto;
@@ -1088,71 +1088,96 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 
 .tree-vector-graphic {
   width: 100%;
-  max-width: 960px;
+  max-width: 980px;
   height: auto;
   display: block;
 }
 
-/* Decision Tree Nodes (Blue boxes like textbook) */
+/* ==========================================================================
+   Pastel Nodes & Badges (Japanese Minimal Style)
+   ========================================================================== */
+
 .svg-node-box {
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
 }
 
+/* Decision Nodes: Soft Pastel Ice Blue */
 .decision-node {
-  fill: #0284c7;
+  fill: #bae6fd;
   stroke: #38bdf8;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 2px 6px rgba(2, 132, 199, 0.4));
+  stroke-width: 2.2;
 }
 
-.root-box {
-  stroke-width: 3;
+[data-theme="dark"] .decision-node {
+  fill: #075985;
+  stroke: #38bdf8;
 }
 
+/* Inactive Leaves & Badges: Subtle Oyster / Muted Gray */
 .inactive-leaf {
-  fill: #475569;
-  stroke: #64748b;
-  stroke-width: 1.5;
-  opacity: 0.85;
-}
-
-[data-theme="light"] .inactive-leaf {
-  fill: #e2e8f0;
+  fill: #f1f5f9;
   stroke: #cbd5e1;
-}
-
-.gold-target-leaf {
-  fill: #f59e0b;
-  stroke: #fde047;
-  stroke-width: 3.5;
-  animation: leafPulse 2s infinite ease-in-out;
-}
-
-@keyframes leafPulse {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7)); }
-  50% { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 1)); }
-}
-
-/* Branch Edge Labels (Yellow badges like textbook) */
-.svg-edge-badge {
-  fill: #fef08a;
-  stroke: #eab308;
   stroke-width: 1.5;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
 }
 
+[data-theme="dark"] .inactive-leaf {
+  fill: #1e293b;
+  stroke: #334155;
+}
+
+.inactive-badge {
+  fill: #f1f5f9;
+  stroke: #cbd5e1;
+  stroke-width: 1.2;
+}
+
+[data-theme="dark"] .inactive-badge {
+  fill: #1e293b;
+  stroke: #334155;
+}
+
+/* Target Condition Badges: Pastel Mint Green */
 .target-edge {
-  fill: #38bdf8;
-  stroke: #0284c7;
+  fill: #dcfce7;
+  stroke: #86efac;
   stroke-width: 2;
-  filter: drop-shadow(0 2px 6px rgba(56, 189, 248, 0.5));
+  filter: drop-shadow(0 2px 5px rgba(134, 239, 172, 0.4));
 }
 
-.final-gold-edge {
-  fill: #fef08a;
+[data-theme="dark"] .target-edge {
+  fill: #14532d;
+  stroke: #4ade80;
+}
+
+/* Special Feature Badge: Soft Pastel Cream / Warm Peach */
+.final-feature-edge {
+  fill: #fef3c7;
+  stroke: #fcd34d;
+  stroke-width: 2;
+  filter: drop-shadow(0 2px 6px rgba(252, 211, 77, 0.35));
+}
+
+[data-theme="dark"] .final-feature-edge {
+  fill: #78350f;
   stroke: #f59e0b;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.6));
+}
+
+/* Target Leaf Node: Sakura Rose / Pastel Coral Pink */
+.sakura-target-leaf {
+  fill: #ffe4e6;
+  stroke: #fda4af;
+  stroke-width: 2.8;
+  animation: sakuraPulse 2.2s infinite ease-in-out;
+}
+
+[data-theme="dark"] .sakura-target-leaf {
+  fill: #881337;
+  stroke: #fb7185;
+}
+
+@keyframes sakuraPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(251, 113, 133, 0.4)); }
+  50% { filter: drop-shadow(0 0 16px rgba(251, 113, 133, 0.8)); }
 }
 
 /* Branch Connection Lines */
@@ -1162,86 +1187,106 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 .inactive-line {
-  stroke: #64748b;
-  stroke-width: 2.5;
+  stroke: #94a3b8;
+  stroke-width: 2;
   stroke-dasharray: 6 6;
   opacity: 0.7;
 }
 
-[data-theme="light"] .inactive-line {
-  stroke: #94a3b8;
+[data-theme="dark"] .inactive-line {
+  stroke: #475569;
 }
 
 .target-line {
   stroke: #38bdf8;
+  stroke-width: 3.8;
+  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.6));
+}
+
+.final-target-line {
+  stroke: #fb7185;
   stroke-width: 4.5;
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+  filter: drop-shadow(0 0 8px rgba(251, 113, 133, 0.7));
 }
 
-.final-gold-line {
-  stroke: #f59e0b;
-  stroke-width: 5;
-  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.9));
-}
-
-/* Text Styling Inside SVG */
+/* Typography Inside SVG */
 .svg-node-text {
-  fill: #ffffff;
+  fill: #0c4a6e;
   font-family: 'Outfit', 'Inter', 'Noto Sans TC', sans-serif;
   font-size: 16px;
   text-anchor: middle;
   dominant-baseline: middle;
 }
 
-[data-theme="light"] .inactive-leaf + .svg-node-text {
-  fill: #475569;
+[data-theme="dark"] .decision-node + .svg-node-text {
+  fill: #f0f9ff;
 }
 
 .svg-node-text.small {
   font-size: 13.5px;
-  fill: #e2e8f0;
+  fill: #64748b;
 }
 
-[data-theme="light"] .svg-node-text.small {
-  fill: #475569;
+[data-theme="dark"] .svg-node-text.small {
+  fill: #94a3b8;
 }
 
 .svg-node-text.font-bold {
   font-weight: 700;
-  font-size: 16.5px;
+  font-size: 16px;
 }
 
 .svg-node-text.target-title {
   font-size: 18px;
-  fill: #78350f;
+  fill: #9f1239;
   font-weight: 800;
+}
+
+[data-theme="dark"] .svg-node-text.target-title {
+  fill: #ffe4e6;
 }
 
 .svg-node-text.target-sub {
   font-size: 13px;
-  fill: #92400e;
+  fill: #be123c;
   font-weight: 600;
 }
 
+[data-theme="dark"] .svg-node-text.target-sub {
+  fill: #fecdd3;
+}
+
 .svg-edge-text {
-  fill: #713f12;
+  fill: #475569;
   font-family: 'Outfit', 'Inter', 'Noto Sans TC', sans-serif;
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: 600;
   text-anchor: middle;
   dominant-baseline: middle;
 }
 
+[data-theme="dark"] .inactive-badge + .svg-edge-text {
+  fill: #94a3b8;
+}
+
 .target-edge + .svg-edge-text {
-  fill: #032b43;
+  fill: #14532d;
   font-weight: 800;
   font-size: 14.5px;
 }
 
-.final-gold-edge + .svg-edge-text {
+[data-theme="dark"] .target-edge + .svg-edge-text {
+  fill: #bbf7d0;
+}
+
+.final-feature-edge + .svg-edge-text {
   fill: #78350f;
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 800;
+}
+
+[data-theme="dark"] .final-feature-edge + .svg-edge-text {
+  fill: #fef3c7;
 }
 
 /* Dynamic Step Reveal in SVG */
