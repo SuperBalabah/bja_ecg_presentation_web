@@ -464,29 +464,33 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 /* ==========================================================================
-   Cards & Grid Layouts
-   ========================================================================= */
+   Cards & Single-Item Presentation Layouts (One Chart/Card per View)
+   ========================================================================== */
 
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+.grid-2, .grid-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 28px 32px;
+  padding: 32px 36px;
   box-shadow: var(--shadow-sm);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
   position: relative;
+  width: 100%;
+}
+
+.card img:not(.meme-img) {
+  max-width: 860px;
+  max-height: 480px;
+  width: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 .card:hover {
