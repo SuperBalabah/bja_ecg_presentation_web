@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguage();
   initDrawerNavigation();
   initCollapsibles();
+  initDecisionTree();
   initMemeFlip();
   initTabs();
   initSmoothScroll();
@@ -245,4 +246,88 @@ function initKeyboardNav() {
       }
     }
   });
+}
+
+// ==========================================
+// 10. Interactive Decision Tree (Anesthesiologist Classifier)
+// ==========================================
+function initDecisionTree() {
+  const treeWrapper = document.getElementById('decisionTreeWrapper');
+  const treeCanvas = document.getElementById('treeCanvas');
+  const nextBtn = document.getElementById('treeNextBtn');
+  const resetBtn = document.getElementById('treeResetBtn');
+  const stepIndicator = document.getElementById('treeStepIndicator');
+
+  if (!treeWrapper) return;
+
+  let currentStep = 0;
+  const maxStep = 5;
+
+  const stepDescriptions = [
+    { zh: 'Step 0 / 5 (點擊開始)', en: 'Step 0 / 5 (Click to Start)' },
+    { zh: 'Step 1 / 5: 性別判定 ➔【女】', en: 'Step 1 / 5: Gender ➔ Female' },
+    { zh: 'Step 2 / 5: 職級判定 ➔【R 住院醫師】', en: 'Step 2 / 5: Rank ➔ Resident (R)' },
+    { zh: 'Step 3 / 5: 年資判定 ➔【Senior R】', en: 'Step 3 / 5: Seniority ➔ Senior R' },
+    { zh: 'Step 4 / 5: 特徵判定 ➔【技術好/對學生好/有染髮】', en: 'Step 4 / 5: Features ➔ Excellent & Dyed Hair' },
+    { zh: 'Step 5 / 5: 🎯 判定輸出：李孟柔 醫師！', en: 'Step 5 / 5: 🎯 Output: Dr. Meng-Jou Lee!' }
+  ];
+
+  function updateTree() {
+    for (let i = 1; i <= maxStep; i++) {
+      const elems = treeWrapper.querySelectorAll(`.step-${i}`);
+      elems.forEach(el => {
+        if (i <= currentStep) {
+          el.classList.add('step-visible');
+        } else {
+          el.classList.remove('step-visible');
+        }
+      });
+    }
+
+    if (stepIndicator) {
+      const isZh = document.documentElement.getAttribute('data-lang') === 'zh';
+      stepIndicator.textContent = isZh ? stepDescriptions[currentStep].zh : stepDescriptions[currentStep].en;
+    }
+
+    if (nextBtn) {
+      const isZh = document.documentElement.getAttribute('data-lang') === 'zh';
+      if (currentStep === maxStep) {
+        nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> <span>${isZh ? '重新演練' : 'Replay'}</span>`;
+      } else if (currentStep === maxStep - 1) {
+        nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg> <span>${isZh ? '揭曉目標！' : 'Reveal Target!'}</span>`;
+      } else {
+        nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg> <span>${isZh ? '下一步分支' : 'Next Branch'}</span>`;
+      }
+    }
+  }
+
+  function nextStep() {
+    if (currentStep < maxStep) {
+      currentStep++;
+    } else {
+      currentStep = 0;
+    }
+    updateTree();
+  }
+
+  function resetTree() {
+    currentStep = 0;
+    updateTree();
+  }
+
+  if (nextBtn) nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    nextStep();
+  });
+
+  if (resetBtn) resetBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    resetTree();
+  });
+
+  if (treeCanvas) treeCanvas.addEventListener('click', () => {
+    nextStep();
+  });
+
+  updateTree();
 }

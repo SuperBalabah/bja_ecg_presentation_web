@@ -361,6 +361,153 @@
                 (卷積殘差網路)、<strong>Transformer</strong>
               </div>
             </div>
+
+            <!-- Interactive Decision Tree: Anesthesiologist Classifier -->
+            <div class="tree-interactive-wrapper" id="decisionTreeWrapper">
+              <div class="tree-header-bar">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.6rem;">🌲</span>
+                  <div>
+                    <h4 style="font-size: 1.3rem; color: var(--text-main); margin-bottom: 2px;">
+                      <span class="lang-zh">樹模型直觀範例：麻醉科醫師辨識樹</span>
+                      <span class="lang-en">Decision Tree Demo: Anesthesiologist Classifier</span>
+                    </h4>
+                    <p style="font-size: 0.98rem; color: var(--text-muted); margin: 0;">
+                      <span class="lang-zh">點擊下方圖表或按鈕逐步揭曉決策分支，看演算法如何一步步判定目標！</span>
+                      <span class="lang-en">Click the tree to branch out step-by-step and classify the target!</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="tree-actions">
+                  <div class="tree-step-pill" id="treeStepIndicator">Step 0 / 5</div>
+                  <button class="tree-ctrl-btn primary" id="treeNextBtn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <span class="lang-zh">下一步分支</span><span class="lang-en">Next Branch</span>
+                  </button>
+                  <button class="tree-ctrl-btn secondary" id="treeResetBtn" title="Reset Tree">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    <span class="lang-zh">重置</span><span class="lang-en">Reset</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Visual Tree View -->
+              <div class="tree-canvas" id="treeCanvas" title="點擊圖表前進下一步分支">
+                
+                <!-- Root Level -->
+                <div class="tree-level level-0">
+                  <div class="tree-node node-root active-node" id="nodeRoot">
+                    <div class="node-badge">Root Node 根節點</div>
+                    <div class="node-text">🎯 麻醉科醫師辨識 (Identify Anesthesiologist)</div>
+                  </div>
+                </div>
+
+                <div class="tree-connector-row step-elem step-1">
+                  <svg class="tree-svg-line" viewBox="0 0 800 50">
+                    <!-- Inactive branch to male -->
+                    <path d="M400,0 L200,50" class="branch-path inactive-path" />
+                    <!-- Active branch to female -->
+                    <path d="M400,0 L600,50" class="branch-path target-path" />
+                  </svg>
+                </div>
+
+                <!-- Level 1: Gender Branch -->
+                <div class="tree-level level-1 step-elem step-1">
+                  <div class="tree-node node-inactive">
+                    <div class="node-condition">性別 (Gender)</div>
+                    <div class="node-val">男 (Male)</div>
+                    <div class="node-sub">➔ 其他醫師分支...</div>
+                  </div>
+                  <div class="tree-node node-target target-glow" id="nodeStep1">
+                    <div class="node-condition">性別 (Gender)</div>
+                    <div class="node-val">★ 女 (Female)</div>
+                    <div class="node-tag">目標匹配</div>
+                  </div>
+                </div>
+
+                <div class="tree-connector-row step-elem step-2">
+                  <svg class="tree-svg-line" viewBox="0 0 800 50">
+                    <path d="M600,0 L420,50" class="branch-path inactive-path" />
+                    <path d="M600,0 L600,50" class="branch-path target-path" />
+                    <path d="M600,0 L760,50" class="branch-path inactive-path" />
+                  </svg>
+                </div>
+
+                <!-- Level 2: Rank Branch (PGY / R / VS) -->
+                <div class="tree-level level-2 step-elem step-2">
+                  <div class="tree-node node-inactive small">
+                    <div class="node-condition">職級 (Rank)</div>
+                    <div class="node-val">PGY</div>
+                  </div>
+                  <div class="tree-node node-target target-glow" id="nodeStep2">
+                    <div class="node-condition">職級 (Rank)</div>
+                    <div class="node-val">★ R (住院醫師)</div>
+                    <div class="node-tag">目標匹配</div>
+                  </div>
+                  <div class="tree-node node-inactive small">
+                    <div class="node-condition">職級 (Rank)</div>
+                    <div class="node-val">VS (主治醫師)</div>
+                  </div>
+                </div>
+
+                <div class="tree-connector-row step-elem step-3">
+                  <svg class="tree-svg-line" viewBox="0 0 800 50">
+                    <path d="M600,0 L470,50" class="branch-path inactive-path" />
+                    <path d="M600,0 L700,50" class="branch-path target-path" />
+                  </svg>
+                </div>
+
+                <!-- Level 3: Seniority (Junior R / Senior R) -->
+                <div class="tree-level level-3 step-elem step-3">
+                  <div class="tree-node node-inactive">
+                    <div class="node-condition">年資 (Seniority)</div>
+                    <div class="node-val">Junior R (R1 / R2)</div>
+                  </div>
+                  <div class="tree-node node-target target-glow" id="nodeStep3">
+                    <div class="node-condition">年資 (Seniority)</div>
+                    <div class="node-val">★ Senior R (資深總醫師)</div>
+                    <div class="node-tag">目標匹配</div>
+                  </div>
+                </div>
+
+                <div class="tree-connector-row step-elem step-4">
+                  <svg class="tree-svg-line" viewBox="0 0 800 50">
+                    <path d="M700,0 L560,50" class="branch-path inactive-path" />
+                    <path d="M700,0 L720,50" class="branch-path target-path" />
+                  </svg>
+                </div>
+
+                <!-- Level 4: Special Characteristics -->
+                <div class="tree-level level-4 step-elem step-4">
+                  <div class="tree-node node-inactive">
+                    <div class="node-condition">綜合臨床特徵</div>
+                    <div class="node-val">否 (No)</div>
+                  </div>
+                  <div class="tree-node node-target target-glow" id="nodeStep4">
+                    <div class="node-condition">綜合臨床與外型特徵</div>
+                    <div class="node-val" style="font-size: 1.15rem;">★ 技術很好 ＆ 對學生很好 ＆ 有染頭髮</div>
+                    <div class="node-tag">100% 條件吻合</div>
+                  </div>
+                </div>
+
+                <div class="tree-connector-row step-elem step-5">
+                  <svg class="tree-svg-line" viewBox="0 0 800 50">
+                    <path d="M720,0 L720,50" class="branch-path target-path final-beam" />
+                  </svg>
+                </div>
+
+                <!-- Level 5: Final Leaf Output Node -->
+                <div class="tree-level level-5 step-elem step-5">
+                  <div class="tree-node node-final-leaf" id="nodeStep5">
+                    <div class="leaf-trophy">🏆 決策樹輸出 (Predicted Target)</div>
+                    <div class="leaf-name">李孟柔 醫師 (CR 李孟柔)</div>
+                    <div class="leaf-subtitle">麻醉部住院總醫師 / 指導醫師</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
 

@@ -923,6 +923,275 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 /* ==========================================================================
+   Interactive Decision Tree (Anesthesiologist Classifier)
+   ========================================================================== */
+
+.tree-interactive-wrapper {
+  margin-top: 24px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-normal);
+}
+
+.tree-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.tree-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tree-step-pill {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 1.05rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.tree-ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-fast);
+}
+
+.tree-ctrl-btn.primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.tree-ctrl-btn.primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.tree-ctrl-btn.secondary {
+  background: var(--card-bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+.tree-ctrl-btn.secondary:hover {
+  color: var(--text-main);
+  border-color: var(--primary);
+}
+
+/* Tree Canvas & Levels */
+.tree-canvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  background: var(--card-bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+  cursor: pointer;
+  user-select: none;
+  overflow-x: auto;
+}
+
+.tree-level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.tree-connector-row {
+  width: 100%;
+  max-width: 900px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.tree-svg-line {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.branch-path {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.inactive-path {
+  stroke: #64748b;
+  stroke-dasharray: 6 6;
+  opacity: 0.45;
+}
+
+.target-path {
+  stroke: var(--primary);
+  stroke-width: 4.5;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
+  animation: drawPath 0.5s ease forwards;
+}
+
+.final-beam {
+  stroke: #f59e0b;
+  stroke-width: 5.5;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.9));
+}
+
+@keyframes drawPath {
+  from { stroke-dashoffset: 100; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+/* Tree Nodes */
+.tree-node {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.node-root {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.2), rgba(13, 148, 136, 0.2));
+  border-color: var(--primary);
+  padding: 16px 28px;
+}
+
+.node-root .node-badge {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.node-root .node-text {
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.node-condition {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.node-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.node-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-top: 4px;
+}
+
+.node-inactive {
+  opacity: 0.45;
+  border-color: var(--border-color);
+  background: var(--card-bg-elevated);
+}
+
+.node-inactive.small {
+  padding: 8px 14px;
+  font-size: 0.95rem;
+}
+
+.node-target {
+  background: var(--card-bg);
+  border-color: var(--primary);
+  border-width: 2.5px;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+  transform: scale(1.04);
+}
+
+.node-final-leaf {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(225, 29, 72, 0.2));
+  border: 3px solid #f59e0b;
+  border-radius: var(--radius-lg);
+  padding: 20px 32px;
+  box-shadow: 0 0 28px rgba(245, 158, 11, 0.6);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.leaf-trophy {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.leaf-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #f59e0b;
+  letter-spacing: -0.01em;
+}
+
+.leaf-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* Step Visibility Control */
+.step-elem {
+  display: none;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.step-elem.step-visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ==========================================================================
    Responsive Design
    ========================================================================= */
 
