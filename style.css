@@ -1077,10 +1077,10 @@ html[data-lang="en"] .lang-zh { display: none !important; }
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--card-bg-elevated);
-  border: 1px dashed var(--border-color);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 20px 10px;
+  padding: 24px 12px;
   cursor: pointer;
   user-select: none;
   overflow-x: auto;
@@ -1094,73 +1094,70 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 /* ==========================================================================
-   Pastel Nodes & Badges (Japanese Minimal Style)
+   Japanese Minimalist Aesthetic (和風極簡)
    ========================================================================== */
 
 .svg-node-box {
-  transition: all 0.35s ease;
+  transition: all 0.3s ease;
 }
 
-/* Decision Nodes: Soft Pastel Ice Blue */
+/* Decision Nodes (Pure White / Deep Slate with Ink Indigo Border) */
 .decision-node {
-  fill: #e0f2fe;
-  stroke: #38bdf8;
-  stroke-width: 2.2;
+  fill: #ffffff !important;
+  stroke: #0284c7 !important;
+  stroke-width: 1.8px !important;
 }
 
 [data-theme="dark"] .decision-node {
-  fill: #075985;
-  stroke: #38bdf8;
+  fill: #1e293b !important;
+  stroke: #38bdf8 !important;
 }
 
-/* Inactive Leaves & Badges: Subtle Oyster / Muted Gray */
+/* Inactive Leaves & Badges (Clean Neutral Muted Slate) */
 .inactive-leaf {
-  fill: #f1f5f9;
-  stroke: #cbd5e1;
-  stroke-width: 1.5;
+  fill: #f8fafc !important;
+  stroke: #e2e8f0 !important;
+  stroke-width: 1.2px !important;
 }
 
 [data-theme="dark"] .inactive-leaf {
-  fill: #1e293b;
-  stroke: #334155;
+  fill: #0f172a !important;
+  stroke: #334155 !important;
 }
 
 .inactive-badge {
-  fill: #f1f5f9;
-  stroke: #cbd5e1;
-  stroke-width: 1.2;
+  fill: #f8fafc !important;
+  stroke: #e2e8f0 !important;
+  stroke-width: 1px !important;
 }
 
 [data-theme="dark"] .inactive-badge {
-  fill: #1e293b;
-  stroke: #334155;
+  fill: #0f172a !important;
+  stroke: #334155 !important;
 }
 
-/* Target Condition Badges: Pastel Mint Green */
+/* Target Condition Badges (Subtle Matcha / Mint Tint) */
 .target-edge {
-  fill: #dcfce7;
-  stroke: #86efac;
-  stroke-width: 2;
-  filter: drop-shadow(0 2px 5px rgba(134, 239, 172, 0.4));
+  fill: #f0fdf4 !important;
+  stroke: #16a34a !important;
+  stroke-width: 1.5px !important;
 }
 
 [data-theme="dark"] .target-edge {
-  fill: #14532d;
-  stroke: #4ade80;
+  fill: #064e3b !important;
+  stroke: #34d399 !important;
 }
 
-/* Target Leaf Node: Pastel Mint Green with Refined Border */
+/* Target Final Output Node (Dr. Meng-Jou Lee - Elegant Highlight) */
 .final-leaf-node {
-  fill: #dcfce7;
-  stroke: #22c55e;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.35));
+  fill: #f0fdf4 !important;
+  stroke: #16a34a !important;
+  stroke-width: 2.4px !important;
 }
 
 [data-theme="dark"] .final-leaf-node {
-  fill: #14532d;
-  stroke: #4ade80;
-  filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.5));
+  fill: #022c22 !important;
+  stroke: #34d399 !important;
 }
 
 /* Branch Connection Lines */
@@ -1170,90 +1167,83 @@ html[data-lang="en"] .lang-zh { display: none !important; }
 }
 
 .inactive-line {
-  stroke: #94a3b8;
-  stroke-width: 2;
-  stroke-dasharray: 6 6;
-  opacity: 0.7;
+  stroke: #cbd5e1 !important;
+  stroke-width: 1.5px !important;
+  stroke-dasharray: 5 5 !important;
 }
 
 [data-theme="dark"] .inactive-line {
-  stroke: #475569;
+  stroke: #475569 !important;
 }
 
 .target-line {
-  stroke: #38bdf8;
-  stroke-width: 3.8;
-  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.6));
+  stroke: #0284c7 !important;
+  stroke-width: 3px !important;
 }
 
-/* Typography Inside SVG */
+[data-theme="dark"] .target-line {
+  stroke: #38bdf8 !important;
+}
+
+/* Typography Inside SVG (Crisp Japanese Minimal Font Rendering) */
 .svg-node-text {
-  fill: #0c4a6e;
-  font-family: 'Outfit', 'Inter', 'Noto Sans TC', sans-serif;
-  font-size: 16px;
-  text-anchor: middle;
-  dominant-baseline: middle;
+  fill: #0f172a !important;
+  font-family: 'Outfit', 'Inter', 'Noto Sans TC', sans-serif !important;
+  font-size: 15.5px !important;
+  text-anchor: middle !important;
+  dominant-baseline: middle !important;
 }
 
-[data-theme="dark"] .decision-node + .svg-node-text {
-  fill: #f0f9ff;
+[data-theme="dark"] .svg-node-text {
+  fill: #f8fafc !important;
 }
 
 .svg-node-text.small {
-  font-size: 13.5px;
-  fill: #64748b;
-}
-
-[data-theme="dark"] .svg-node-text.small {
-  fill: #94a3b8;
+  font-size: 13px !important;
+  fill: #94a3b8 !important;
 }
 
 .svg-node-text.font-bold {
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 700 !important;
 }
 
 .svg-node-text.target-title {
-  font-size: 17.5px;
-  fill: #14532d;
-  font-weight: 800;
+  font-size: 17px !important;
+  fill: #14532d !important;
+  font-weight: 800 !important;
 }
 
 [data-theme="dark"] .svg-node-text.target-title {
-  fill: #f0fdf4;
+  fill: #ecfdf5 !important;
 }
 
 .svg-node-text.target-sub {
-  font-size: 13px;
-  fill: #166534;
-  font-weight: 600;
+  font-size: 12.5px !important;
+  fill: #166534 !important;
+  font-weight: 600 !important;
 }
 
 [data-theme="dark"] .svg-node-text.target-sub {
-  fill: #bbf7d0;
+  fill: #a7f3d0 !important;
 }
 
 .svg-edge-text {
-  fill: #475569;
-  font-family: 'Outfit', 'Inter', 'Noto Sans TC', sans-serif;
-  font-size: 13.5px;
-  font-weight: 600;
-  text-anchor: middle;
-  dominant-baseline: middle;
+  fill: #94a3b8 !important;
+  font-family: 'Outfit', 'Inter', 'Noto Sans TC', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-anchor: middle !important;
+  dominant-baseline: middle !important;
 }
 
-[data-theme="dark"] .inactive-badge + .svg-edge-text {
-  fill: #94a3b8;
+.target-edge-text {
+  fill: #15803d !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
 }
 
-.target-edge + .svg-edge-text {
-  fill: #14532d;
-  font-weight: 800;
-  font-size: 14.5px;
-}
-
-[data-theme="dark"] .target-edge + .svg-edge-text {
-  fill: #bbf7d0;
+[data-theme="dark"] .target-edge-text {
+  fill: #86efac !important;
 }
 
 /* Dynamic Step Reveal in SVG */

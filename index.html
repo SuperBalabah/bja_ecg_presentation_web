@@ -408,7 +408,7 @@
 
                   <!-- ================= LEVEL 0: ROOT NODE ================= -->
                   <g class="tree-group step-0">
-                    <rect x="380" y="20" width="240" height="48" rx="10" class="svg-node-box decision-node root-box" />
+                    <rect x="380" y="20" width="240" height="48" rx="8" class="svg-node-box decision-node root-box" />
                     <text x="500" y="45" class="svg-node-text font-bold">性別？ (Gender?)</text>
                   </g>
 
@@ -416,17 +416,17 @@
                   <g class="tree-group step-elem step-1">
                     <!-- Inactive Branch: Male -->
                     <line x1="500" y1="68" x2="240" y2="195" class="svg-branch-line inactive-line" />
-                    <rect x="270" y="115" width="115" height="30" rx="8" class="svg-edge-badge inactive-badge" />
+                    <rect x="270" y="115" width="115" height="30" rx="6" class="svg-edge-badge inactive-badge" />
                     <text x="327" y="131" class="svg-edge-text">男 (Male)</text>
-                    <rect x="150" y="195" width="180" height="44" rx="10" class="svg-node-box inactive-leaf" />
+                    <rect x="150" y="195" width="180" height="44" rx="8" class="svg-node-box inactive-leaf" />
                     <text x="240" y="218" class="svg-node-text small">其他男醫師 (Others)</text>
 
                     <!-- Active Target Branch: Female -->
                     <line x1="500" y1="68" x2="700" y2="195" class="svg-branch-line target-line" />
-                    <rect x="535" y="112" width="135" height="34" rx="8" class="svg-edge-badge target-edge" />
-                    <text x="602" y="130" class="svg-edge-text font-bold">★ 女 (Female)</text>
+                    <rect x="535" y="112" width="135" height="34" rx="6" class="svg-edge-badge target-edge" />
+                    <text x="602" y="130" class="svg-edge-text target-edge-text">★ 女 (Female)</text>
                     <!-- Level 1 Decision Node -->
-                    <rect x="585" y="195" width="230" height="48" rx="10" class="svg-node-box decision-node" />
+                    <rect x="585" y="195" width="230" height="48" rx="8" class="svg-node-box decision-node" />
                     <text x="700" y="220" class="svg-node-text font-bold">職級？ (Rank?)</text>
                   </g>
 
@@ -448,10 +448,10 @@
 
                     <!-- Active Target Branch: Resident (R) -->
                     <line x1="700" y1="243" x2="700" y2="365" class="svg-branch-line target-line" />
-                    <rect x="625" y="282" width="150" height="34" rx="8" class="svg-edge-badge target-edge" />
-                    <text x="700" y="300" class="svg-edge-text font-bold">★ R (住院醫師)</text>
+                    <rect x="625" y="282" width="150" height="34" rx="6" class="svg-edge-badge target-edge" />
+                    <text x="700" y="300" class="svg-edge-text target-edge-text">★ R (住院醫師)</text>
                     <!-- Level 2 Decision Node -->
-                    <rect x="585" y="365" width="230" height="48" rx="10" class="svg-node-box decision-node" />
+                    <rect x="585" y="365" width="230" height="48" rx="8" class="svg-node-box decision-node" />
                     <text x="700" y="390" class="svg-node-text font-bold">年資？ (Seniority?)</text>
                   </g>
 
@@ -466,10 +466,10 @@
 
                     <!-- Active Target Branch: Senior R -->
                     <line x1="700" y1="413" x2="780" y2="525" class="svg-branch-line target-line" />
-                    <rect x="670" y="448" width="155" height="34" rx="8" class="svg-edge-badge target-edge" />
-                    <text x="747" y="466" class="svg-edge-text font-bold">★ Senior R (CR)</text>
+                    <rect x="670" y="448" width="155" height="34" rx="6" class="svg-edge-badge target-edge" />
+                    <text x="747" y="466" class="svg-edge-text target-edge-text">★ Senior R (CR)</text>
                     <!-- Level 3 Decision Node -->
-                    <rect x="655" y="525" width="250" height="48" rx="10" class="svg-node-box decision-node" />
+                    <rect x="655" y="525" width="250" height="48" rx="8" class="svg-node-box decision-node" />
                     <text x="780" y="550" class="svg-node-text font-bold">臨床與外型特徵？</text>
                   </g>
 
@@ -482,13 +482,13 @@
                     <rect x="370" y="660" width="180" height="42" rx="8" class="svg-node-box inactive-leaf" />
                     <text x="460" y="682" class="svg-node-text small">其他住院醫師</text>
 
-                    <!-- Active Target Branch: Special Features (Green Mint Palette) -->
+                    <!-- Active Target Branch: Special Features -->
                     <line x1="780" y1="573" x2="820" y2="655" class="svg-branch-line target-line" />
-                    <rect x="675" y="598" width="290" height="34" rx="8" class="svg-edge-badge target-edge" />
-                    <text x="820" y="616" class="svg-edge-text font-bold">★ 技術好 ＆ 對學生好 ＆ 染髮</text>
+                    <rect x="675" y="598" width="290" height="34" rx="6" class="svg-edge-badge target-edge" />
+                    <text x="820" y="616" class="svg-edge-text target-edge-text">★ 技術好 ＆ 對學生好 ＆ 染髮</text>
 
-                    <!-- FINAL LEAF TARGET NODE: Dr. Meng-Jou Lee (Clean Minimal Green) -->
-                    <rect x="670" y="655" width="300" height="54" rx="10" class="svg-node-box final-leaf-node" />
+                    <!-- FINAL LEAF TARGET NODE: Dr. Meng-Jou Lee (Japanese Minimalist Accent Box) -->
+                    <rect x="670" y="655" width="300" height="54" rx="8" class="svg-node-box final-leaf-node" />
                     <text x="820" y="677" class="svg-node-text target-title font-bold">李孟柔 醫師 (CR 李孟柔)</text>
                     <text x="820" y="696" class="svg-node-text target-sub">麻醉部住院總醫師 / 指導醫師</text>
                   </g>
